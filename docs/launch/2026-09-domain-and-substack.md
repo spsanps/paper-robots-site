@@ -1,12 +1,18 @@
 # Launch handoff — September 6, 2026
 
-San has bought **paperrobots.studio**. Registration is confirmed by San; the
-registrar and DNS account have not been identified in this session. The assistant
-has GitHub access but no authenticated registrar/Cloudflare connection.
+San has bought **paperrobots.studio**. Public DNS now shows GoDaddy nameservers
+`ns73.domaincontrol.com` and `ns74.domaincontrol.com`, with parking A records
+`76.223.105.230` and `13.248.243.5` (observed September 6). The assistant has GitHub
+access but no authenticated GoDaddy/Cloudflare connection. No DNS was changed.
 
 The public website repository is https://github.com/spsanps/paper-robots-site.
 GitHub Pages is configured to deploy with Actions. Initial review address:
 https://spsanps.github.io/paper-robots-site/.
+
+The first release, `049dab9`, deployed successfully in Actions run 34065548843.
+The public homepage returned HTTP 200. All 18 browser/viewport checks also passed
+against the actual GitHub Pages address, including its project-prefixed asset
+paths, the full essay without JavaScript, and click-to-load video.
 
 ## Connect the domain
 
