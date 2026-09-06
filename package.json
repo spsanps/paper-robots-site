@@ -1,0 +1,18 @@
+{
+  "name": "paper-robots-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "npm run build && node scripts/serve.mjs",
+    "check": "node scripts/check.mjs",
+    "sync:essay": "node scripts/sync-essay.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "playwright": "1.57.0"
+  }
+}

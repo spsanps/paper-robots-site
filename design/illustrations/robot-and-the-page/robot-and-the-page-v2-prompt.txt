@@ -1,0 +1,16 @@
+Built-in image_gen, September 6, 2026.
+Selected output: robot-and-the-page-v2-flat-paper.png.
+Display asset: robot-and-the-page-v2-flat-paper.webp.
+Reference: robot-and-the-page-v1.png in this folder.
+
+Exact selected refinement prompt:
+
+Use case: precise-object-edit. Preserve the robot, hand, cup, tiny person, flowers, and entire folded-paper stage in this image EXACTLY. Change ONLY the empty surrounding backdrop. The empty backdrop must be one perfectly flat, uniform, matte warm ivory solid color, RGB 245 241 231, hex #F5F1E7. Every outer background pixel, including all corners and the empty left area, is the same flat solid color. Remove ALL texture, vignette, gradients, lighting variation and noise from the EMPTY OUTER BACKGROUND only. Keep the beautiful textured gouache paint and the folded paper's texture unchanged inside the subjects. Retain only the small contact shadow immediately under the paper stage. No transparency. No checkerboard pattern. No visible rectangular backdrop. No changes to composition, scale, crop, pose, style, colors of the subjects or their edges. Keep the 1536 by 1024 canvas. No text, border or watermark.
+
+Selection note:
+
+Before this refinement, a background-extraction request produced an RGB image
+with a checkerboard painted into it. Its alpha validation failed, and that output
+was rejected rather than used as a transparent asset. The selected v2 above has a
+plain background, not transparency. The page's paper color was matched to the
+observed background; no programmatic image-content editing was used.
