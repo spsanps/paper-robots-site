@@ -39,6 +39,10 @@ available. Verify both apex and www. GitHub recommends configuring the domain in
 Pages before its DNS records:
 https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site.
 
+After the domain works, update the personal repository’s `src/data/links.js`
+and its `public/llms.txt` Paper Robots link from the temporary review address to
+`https://paperrobots.studio/`, then build and push that small change.
+
 ## Connect Substack
 
 - Author profile: **San Kala**, handle `sankala` if available, personal headshot.
