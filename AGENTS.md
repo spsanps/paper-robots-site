@@ -1,5 +1,11 @@
 # Paper Robots website
 
+September 9: San rejected both previous homepages as ordinary, boring blogs.
+The new homepage is a full-screen film setting with silent local film previews,
+a two-film selector and an in-page screening dialog. Preserve plain film/essay
+links and reduced-motion/no-JS fallbacks. Do not call this award-winning or user
+validated. See design/reviews/2026-09-09-cinema/README.md.
+
 September 8 launch update: San imported the project into Vercel and connected
 GoDaddy DNS. The production origin is https://www.paperrobots.studio/; the apex
 redirects there. A @ is 216.198.79.1 and CNAME www is

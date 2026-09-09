@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import site from '../site.config.mjs';
 import { films } from '../src/data/films.mjs';
 import { player, filmCard } from '../src/templates/films.mjs';
+import { cinemaHero, cinemaCollection } from '../src/templates/cinema.mjs';
 import { layout, action, arrow, esc, followSection } from '../src/templates/layout.mjs';
 
 const root = fileURLToPath(new URL('../',import.meta.url));
@@ -16,7 +17,7 @@ await cp(resolve(root,'public'),dist,{recursive:true});
 await cp(resolve(root,'src/styles'),resolve(dist,'styles'),{recursive:true});
 await cp(resolve(root,'src/scripts'),resolve(dist,'scripts'),{recursive:true});
 if(base) {
-  for(const file of ['site.css','publication.css','studio.css']) {
+  for(const file of ['site.css','publication.css','studio.css','cinema.css']) {
     const path=resolve(dist,'styles',file);
     const css=await readFile(path,'utf8');
     await writeFile(path,css.replace(/url\((['"]?)\//g,`url($1${base}/`));
@@ -24,7 +25,7 @@ if(base) {
 }
 const paths=[];
 async function page(path,title,content,extra={}) {
-  const document=layout({path,title,content,...extra,noindex:extra.noindex || Boolean(base)}).replace(/((?:href|src)=['"])\/(?!\/)/g,`$1${base}/`);
+  const document=layout({path,title,content,...extra,noindex:extra.noindex || Boolean(base)}).replace(/((?:href|src|data-preview)=['"])\/(?!\/)/g,`$1${base}/`);
   const output=resolve(dist,path === '/404.html' ? '404.html' : '.'+path,'index.html');
   const target=path === '/404.html' ? resolve(dist,'404.html') : output;
   await mkdir(dirname(target),{recursive:true});
@@ -33,7 +34,7 @@ async function page(path,title,content,extra={}) {
 }
 const readSource = file => readFile(resolve(root,'src/pages',file),'utf8');
 const follow=followSection();
-await page('/','Paper Robots — AI, robots & possible futures',(await readSource('home.html')).replace('{{FOLLOW_SECTION}}',follow).replace('{{LATEST_PLAYER}}',player(films[0])).replace('{{FILM_CARDS}}',films.map(filmCard).join('')),{
+await page('/','Paper Robots — AI, robots & possible futures',(await readSource('home.html')).replace('{{FOLLOW_SECTION}}',follow).replace('{{CINEMA_HERO}}',cinemaHero()).replace('{{CINEMA_COLLECTION}}',cinemaCollection()).replace('{{LATEST_PLAYER}}',player(films[0])).replace('{{FILM_CARDS}}',films.map(filmCard).join('')),{
   schema: {'@context':'https://schema.org','@type':'WebSite',name:site.name,url:site.url,description:site.description,publisher:{'@type':'Person',name:site.author,url:site.authorUrl}},
 });
 await page('/about/','About — Paper Robots',await readSource('about.html'));

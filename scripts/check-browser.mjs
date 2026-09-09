@@ -5,7 +5,7 @@ const origin=process.env.SITE_ORIGIN || 'http://127.0.0.1:4174';
 const base=(process.env.SITE_BASE_PATH || '').replace(/\/$/,'');
 const paths=['/','/essays/','/films/','/about/','/follow/','/essays/gpt7-will-have-arms/','/films/capricious-god/','/films/robotics-revolution/'];
 const report=[];
-const directory=new URL('../design/reviews/2026-09-studio/',import.meta.url);
+const directory=new URL('../design/reviews/2026-09-09-cinema/',import.meta.url);
 await mkdir(directory,{recursive:true});
 const browser=await chromium.launch();
 try {
@@ -26,6 +26,18 @@ try {
       report.push({path,width,title:await page.title()});
       if(path === '/' || (path === '/essays/gpt7-will-have-arms/' && width !== 320)) await page.screenshot({path:new URL((path === '/'?'homepage':'reading-edition')+'-'+width+'.png',directory).pathname,fullPage:path === '/'});
     }
+    await page.goto(origin+base+'/');
+    assert.equal(await page.locator('iframe').count(),0,'Homepage waits for the viewer before loading YouTube');
+    await page.getByRole('button',{name:'Pause background preview'}).click();
+    assert.ok(await page.locator('.cinema-scene.is-current video').evaluate(video=>video.paused),'Preview can pause');
+    await page.locator('[data-select-scene="1"]').click();
+    assert.equal(await page.locator('[data-feature]:not([hidden])').getAttribute('data-film-id'),'kzvqj4jurW0','Film switch changes the story and playback target');
+    await page.locator('[data-feature]:not([hidden]) [data-cinema-play]').click();
+    assert.ok(await page.getByRole('dialog').isVisible(),'Screening opens in place');
+    assert.ok((await page.locator('.cinema-screen iframe').getAttribute('src')).includes('/kzvqj4jurW0?'),'Screening plays the selected film');
+    await page.keyboard.press('Escape');
+    await page.waitForFunction(()=>!document.querySelector('.cinema-screen iframe'));
+    assert.equal(await page.locator('dialog[open]').count(),0,'Escape closes the screening and removes the player');
     await page.goto(origin+base+'/films/');
     assert.equal(await page.locator('[data-film-entry]').count(),2,'Both films discoverable');
     for(const [slug,title,id] of [['robotics-revolution','The Coming Robotics Revolution','kzvqj4jurW0'],['capricious-god','How to Please a Capricious God','wswbqJNMFBw']]) {
@@ -41,7 +53,14 @@ try {
     for(const label of ['Films','Essays','About','Follow']) assert.ok(await page.getByRole('navigation',{name:'Main',exact:true}).getByRole('link',{name:label,exact:true}).isVisible(),'Visible mobile navigation');
     await page.close();
   }
+  const quiet=await browser.newPage({reducedMotion:'reduce'});
+  await quiet.goto(origin+base+'/',{waitUntil:'networkidle'});
+  assert.equal(await quiet.locator('video[src]').count(),0,'Reduced motion starts with still artwork and no preview download');
+  await quiet.close();
   const page=await browser.newPage({javaScriptEnabled:false,viewport:{width:390,height:900}});
+  await page.goto(origin+base+'/');
+  assert.equal(await page.locator('.cinema-posters [data-film-entry]').count(),2,'Both films remain linked without JavaScript');
+  assert.ok(await page.locator('[data-feature="0"] [data-cinema-play]').isVisible(),'First film has a normal link without JavaScript');
   await page.goto(origin+base+'/essays/gpt7-will-have-arms/');
   assert.ok((await page.locator('article').innerText()).length>30000,'Full essay readable without JavaScript');
   await page.close();

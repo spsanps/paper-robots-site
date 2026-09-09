@@ -1,0 +1,126 @@
+{
+  "checks": [
+    {
+      "path": "/",
+      "width": 1440,
+      "title": "Paper Robots — AI, robots & possible futures"
+    },
+    {
+      "path": "/essays/",
+      "width": 1440,
+      "title": "Essays — Paper Robots"
+    },
+    {
+      "path": "/films/",
+      "width": 1440,
+      "title": "Animated films — Paper Robots"
+    },
+    {
+      "path": "/about/",
+      "width": 1440,
+      "title": "About — Paper Robots"
+    },
+    {
+      "path": "/follow/",
+      "width": 1440,
+      "title": "Follow — Paper Robots"
+    },
+    {
+      "path": "/essays/gpt7-will-have-arms/",
+      "width": 1440,
+      "title": "GPT-7 Will Have Arms — Paper Robots"
+    },
+    {
+      "path": "/films/capricious-god/",
+      "width": 1440,
+      "title": "How to Please a Capricious God — Paper Robots"
+    },
+    {
+      "path": "/films/robotics-revolution/",
+      "width": 1440,
+      "title": "The Coming Robotics Revolution — Paper Robots"
+    },
+    {
+      "path": "/",
+      "width": 390,
+      "title": "Paper Robots — AI, robots & possible futures"
+    },
+    {
+      "path": "/essays/",
+      "width": 390,
+      "title": "Essays — Paper Robots"
+    },
+    {
+      "path": "/films/",
+      "width": 390,
+      "title": "Animated films — Paper Robots"
+    },
+    {
+      "path": "/about/",
+      "width": 390,
+      "title": "About — Paper Robots"
+    },
+    {
+      "path": "/follow/",
+      "width": 390,
+      "title": "Follow — Paper Robots"
+    },
+    {
+      "path": "/essays/gpt7-will-have-arms/",
+      "width": 390,
+      "title": "GPT-7 Will Have Arms — Paper Robots"
+    },
+    {
+      "path": "/films/capricious-god/",
+      "width": 390,
+      "title": "How to Please a Capricious God — Paper Robots"
+    },
+    {
+      "path": "/films/robotics-revolution/",
+      "width": 390,
+      "title": "The Coming Robotics Revolution — Paper Robots"
+    },
+    {
+      "path": "/",
+      "width": 320,
+      "title": "Paper Robots — AI, robots & possible futures"
+    },
+    {
+      "path": "/essays/",
+      "width": 320,
+      "title": "Essays — Paper Robots"
+    },
+    {
+      "path": "/films/",
+      "width": 320,
+      "title": "Animated films — Paper Robots"
+    },
+    {
+      "path": "/about/",
+      "width": 320,
+      "title": "About — Paper Robots"
+    },
+    {
+      "path": "/follow/",
+      "width": 320,
+      "title": "Follow — Paper Robots"
+    },
+    {
+      "path": "/essays/gpt7-will-have-arms/",
+      "width": 320,
+      "title": "GPT-7 Will Have Arms — Paper Robots"
+    },
+    {
+      "path": "/films/capricious-god/",
+      "width": 320,
+      "title": "How to Please a Capricious God — Paper Robots"
+    },
+    {
+      "path": "/films/robotics-revolution/",
+      "width": 320,
+      "title": "The Coming Robotics Revolution — Paper Robots"
+    }
+  ],
+  "noJavaScriptReading": true,
+  "filmActivation": true
+}
