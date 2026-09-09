@@ -48,7 +48,7 @@
 .brand-paper .film-index-copy .actions { gap: 10px; flex-wrap: wrap; }
 .brand-paper .film-index-copy .action { padding: 10px 13px; font-size: 12px; }
 .brand-paper .studio-reading { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: center; padding-block: 90px; }
-.brand-paper .reading-art img { width: 100%; mix-blend-mode: multiply; }
+.brand-paper .reading-art img { width: 100%; mix-blend-mode: normal; }
 .brand-paper .studio-reading h2 { font-size: clamp(40px,4.2vw,61px); line-height: 1.12; margin: 18px 0 22px; }
 .brand-paper .studio-reading p { font-size: 16px; color: var(--muted); margin-bottom: 24px; max-width: 460px; }
 .brand-paper .studio-reading small { display: block; font-size: 11px; color: var(--muted); margin-top: 18px; }

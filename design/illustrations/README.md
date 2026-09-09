@@ -2,10 +2,14 @@
 
 The publication reuses San’s approved Paper Robots painted universe. Production
 WebP assets were copied byte-for-byte from the September website studies in the
-sankala.me repository. No new image generation was needed for this implementation.
+sankala.me repository. The original publication reused those assets. September 8: San requested a remake
+of the robot-and-page illustration; the replacement uses the built-in image tool.
 
-- `robot-and-the-page/`: the accepted version 2 cover, generated earlier with the
-  built-in image tool; source PNG and exact prompt are retained here.
+- `robot-and-the-page/current/`: version 3, a clear painted scene with the blue
+  robot lifting a red mug beside an open book. Source PNG, exact prompt and
+  desktop/phone reviews are here.
+- `robot-and-the-page/archive/v2/`: the superseded folded-paper composition,
+  including the original PNG, WebP and prompt.
 - `public/assets/identity/paper-robot.webp`: the existing painted-universe profile
   picture, also used as the publication mark.
 - `public/assets/identity/many-arms-film.webp`: San’s many-arms thumbnail concept,
