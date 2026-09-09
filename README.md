@@ -1,5 +1,7 @@
 # Paper Robots
 
+Web Analytics setup and verification: [Vercel Web Analytics](docs/launch/2026-09-web-analytics.md).
+
 September 8 launch update: San imported the project into Vercel and connected
 GoDaddy DNS. The production origin is https://www.paperrobots.studio/; the apex
 redirects there. A @ is 216.198.79.1 and CNAME www is

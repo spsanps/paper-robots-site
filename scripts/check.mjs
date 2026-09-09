@@ -4,15 +4,18 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import site from '../site.config.mjs';
 const root=fileURLToPath(new URL('../dist/',import.meta.url));
+const expectsAnalytics=process.env.VERCEL === '1' && !(process.env.SITE_BASE_PATH || '').replace(/\/$/,'');
 const paths=['/','/essays/','/films/','/about/','/follow/','/essays/gpt7-will-have-arms/','/films/capricious-god/','/films/robotics-revolution/'];
 for(const path of paths) {
   const html=await readFile(resolve(root,'.'+path,'index.html'),'utf8');
   assert.equal((html.match(/<h1\b/g)||[]).length,1,'One clear heading: '+path);
   assert.ok(html.includes('rel="canonical"') && html.includes('og:image'),'Sharing metadata: '+path);
+  assert.equal((html.match(/<script defer src="\/_vercel\/insights\/script\.js"><\/script>/g)||[]).length,expectsAnalytics ? 1 : 0,'Correct analytics integration for this deployment: '+path);
   assert.ok(!/Design study|publication has not been created|\{\{/.test(html),'No prototype copy: '+path);
   for(const [,url] of html.matchAll(/(?:src|href)="(\/[^"#?]*)[^\"]*"/g)) {
     // Deployment under a Pages project prefix is covered by the browser check.
     if(process.env.SITE_BASE_PATH) continue;
+    if(url === '/_vercel/insights/script.js') continue; // Managed by Vercel, not a repository asset.
     const filename=url.endsWith('/') ? url+'index.html' : url;
     await readFile(resolve(root,'.'+decodeURIComponent(filename)));
   }

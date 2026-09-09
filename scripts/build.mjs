@@ -25,7 +25,7 @@ if(base) {
 }
 const paths=[];
 async function page(path,title,content,extra={}) {
-  const document=layout({path,title,content,...extra,noindex:extra.noindex || Boolean(base)}).replace(/((?:href|src|data-preview)=['"])\/(?!\/)/g,`$1${base}/`);
+  const document=layout({path,title,content,...extra,webAnalytics:process.env.VERCEL === '1' && !base,noindex:extra.noindex || Boolean(base)}).replace(/((?:href|src|data-preview)=['"])\/(?!\/)/g,`$1${base}/`);
   const output=resolve(dist,path === '/404.html' ? '404.html' : '.'+path,'index.html');
   const target=path === '/404.html' ? resolve(dist,'404.html') : output;
   await mkdir(dirname(target),{recursive:true});
