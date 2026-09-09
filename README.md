@@ -42,6 +42,12 @@ the publication’s subscribe page. There is no collecting form or payment setup
 
 ## Publish and update
 
+**September 8 update:** Vercel is now the recommended primary host, matching
+sankala.me. The repository includes `vercel.json`; import it into San's existing
+Vercel account using [this walkthrough](docs/launch/2026-09-vercel-setup.md).
+The Vercel import and domain connection remain pending. The GitHub Pages setup
+below remains available while the switch is completed.
+
 GitHub Actions builds and deploys `main` to GitHub Pages. The workflow reads the
 Pages base path, so the temporary GitHub project address and the custom domain
 both work without editing asset links. Project-address previews use `noindex`.

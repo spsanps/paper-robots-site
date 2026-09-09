@@ -1,5 +1,12 @@
 # Paper Robots website
 
+September 8: San is connecting paperrobots.studio and asked why not use Vercel.
+The current recommendation is Vercel in the same account as sankala.me; its
+project import/domain setup remain pending. Read docs/launch/2026-09-vercel-setup.md.
+GitHub Pages remains a fallback with no custom domain bound. Both sites should
+receive ambitious, distinctive art direction; the personal site must keep its
+photographs, complete history and easy browsing. Substack setup is paused.
+
 San owns paperrobots.studio and authorized implementation and publication on
 September 6, 2026. San Kala and Paper Robots must have separate sites: San’s site
 contains his full history and body of work; this publication curates essays and

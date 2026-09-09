@@ -1,5 +1,10 @@
 # Launch handoff — September 6, 2026
 
+**Superseded hosting recommendation, September 8:** San asked to consider Vercel.
+Use [the Vercel setup walkthrough](2026-09-vercel-setup.md) for the current path.
+The temporary GitHub domain binding was removed; do not enter the GitHub Pages
+DNS addresses below when connecting the Vercel project. Substack remains paused.
+
 San has bought **paperrobots.studio**. Public DNS now shows GoDaddy nameservers
 `ns73.domaincontrol.com` and `ns74.domaincontrol.com`, with parking A records
 `76.223.105.230` and `13.248.243.5` (observed September 6). The assistant has GitHub
