@@ -3,9 +3,9 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { chromium } from 'playwright';
 const origin=process.env.SITE_ORIGIN || 'http://127.0.0.1:4174';
 const base=(process.env.SITE_BASE_PATH || '').replace(/\/$/,'');
-const paths=['/','/essays/','/films/','/about/','/follow/','/essays/gpt7-will-have-arms/'];
+const paths=['/','/essays/','/films/','/about/','/follow/','/essays/gpt7-will-have-arms/','/films/capricious-god/','/films/robotics-revolution/'];
 const report=[];
-const directory=new URL('../design/reviews/2026-09-launch/',import.meta.url);
+const directory=new URL('../design/reviews/2026-09-studio/',import.meta.url);
 await mkdir(directory,{recursive:true});
 const browser=await chromium.launch();
 try {
@@ -27,14 +27,18 @@ try {
       if(path === '/' || (path === '/essays/gpt7-will-have-arms/' && width !== 320)) await page.screenshot({path:new URL((path === '/'?'homepage':'reading-edition')+'-'+width+'.png',directory).pathname,fullPage:path === '/'});
     }
     await page.goto(origin+base+'/films/');
-    assert.equal(await page.locator('iframe').count(),0,'No third-party player loaded before consent to play');
-    await page.getByRole('button',{name:'Play The Coming Robotics Revolution'}).click();
-    assert.ok((await page.locator('iframe').getAttribute('src')).startsWith('https://www.youtube-nocookie.com/embed/kzvqj4jurW0'),'Film activates');
-    if(width<700) {
-      await page.getByText('Menu +',{exact:true}).click();
-      await page.getByText('Menu +',{exact:true}).press('Escape');
-      assert.equal(await page.locator('.mobile-menu').getAttribute('open'),null,'Keyboard menu');
+    assert.equal(await page.locator('[data-film-entry]').count(),2,'Both films discoverable');
+    for(const [slug,title,id] of [['robotics-revolution','The Coming Robotics Revolution','kzvqj4jurW0'],['capricious-god','How to Please a Capricious God','wswbqJNMFBw']]) {
+      await page.goto(origin+base+'/films/'+slug+'/');
+      assert.equal(await page.locator('iframe').count(),0,'No unsolicited YouTube load');
+      await page.getByRole('button',{name:'Play '+title,exact:true}).click();
+      assert.ok((await page.locator('iframe').getAttribute('src')).startsWith('https://www.youtube-nocookie.com/embed/'+id),'Correct film activates');
     }
+    await page.getByRole('link',{name:'Read the script',exact:false}).click();
+    assert.ok(await page.locator('.film-script').isVisible(),'Script opens');
+    await page.locator('[data-film-chapter="195"]').click();
+    assert.ok((await page.locator('iframe').getAttribute('src')).includes('start=195'),'Chapter seeks in the correct film');
+    for(const label of ['Films','Essays','About','Follow']) assert.ok(await page.getByRole('navigation',{name:'Main',exact:true}).getByRole('link',{name:label,exact:true}).isVisible(),'Visible mobile navigation');
     await page.close();
   }
   const page=await browser.newPage({javaScriptEnabled:false,viewport:{width:390,height:900}});
@@ -42,5 +46,5 @@ try {
   assert.ok((await page.locator('article').innerText()).length>30000,'Full essay readable without JavaScript');
   await page.close();
   await writeFile(new URL('browser-checks.json',directory),JSON.stringify({checks:report,noJavaScriptReading:true,filmActivation:true},null,2)+'\n');
-  console.log('Passed 18 page/viewport checks, anchors, images, keyboard navigation, film activation, and reading without JavaScript.');
+  console.log('Passed 24 page/viewport checks, anchors, images, keyboard navigation, film activation, and reading without JavaScript.');
 } finally { await browser.close(); }

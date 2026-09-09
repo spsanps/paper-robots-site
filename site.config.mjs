@@ -1,6 +1,6 @@
 export default {
   name: 'Paper Robots',
-  url: 'https://paperrobots.studio',
+  url: 'https://www.paperrobots.studio',
   description: 'Illustrated essays and animated films about AI, robots, and possible futures. Written and made by San Kala.',
   author: 'San Kala',
   authorUrl: 'https://sankala.me',

@@ -1,5 +1,21 @@
 # Paper Robots website
 
+September 8 launch update: San imported the project into Vercel and connected
+GoDaddy DNS. The production origin is https://www.paperrobots.studio/; the apex
+redirects there. A @ is 216.198.79.1 and CNAME www is
+ d2a0066b926ad6c7.vercel-dns-017.com. Both backend addresses pass HTTPS checks.
+Local DNS caches may still reach the former GoDaddy parking page. No further DNS
+edits are indicated. https://paper-robots-site.vercel.app/ is a working fallback.
+Cloudflare proxy/cache is not configured. GitHub Pages has no custom domain.
+
+The redesigned homepage now features both films, including San's newly supplied
+https://youtu.be/wswbqJNMFBw. Film details, chapters, script and sources are at
+/films/capricious-god/. See docs/content/2026-09-capricious-god.md.
+Substack remains paused; no revenue features or account settings were changed.
+This is an ambitious design revision, not an award claim or visitor validation.
+
+Earlier setup notes (superseded where they describe pending import or DNS):
+
 September 8: San is connecting paperrobots.studio and asked why not use Vercel.
 The current recommendation is Vercel in the same account as sankala.me; its
 project import/domain setup remain pending. Read docs/launch/2026-09-vercel-setup.md.
