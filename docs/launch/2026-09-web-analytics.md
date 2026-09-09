@@ -12,7 +12,10 @@ Enable Web Analytics for the `paper-robots-site` project in the Vercel dashboard
 then deploy. The deployment creates the managed analytics endpoints. Adding the
 script alone does not confirm that collection is enabled. The dashboard setting
 has not been changed by the assistant; no Vercel API credentials are available.
-Live script and pageview responses are checked after deployment.
+After deployment of runtime commit `4040d84`, the live script returned JavaScript
+with HTTP 200, and homepage and `/films/` pageviews were both accepted with HTTP
+200. There is one analytics script per page. The collection endpoint is active;
+no further dashboard setup is needed. Private dashboard graphs were not inspected.
 
 No custom events, user identification, cookie/session features, advertising, or
 paid upgrades were added. This does not affect the nonmonetized publishing setup.
