@@ -1,0 +1,78 @@
+/* The films as tapes, on the site's quiet paper. Each film is a row with its
+   code-drawn poster (src/scripts/film-art/); the film page adds the in-page player,
+   whose face is the film's code-drawn thumbnail, and "Made, not generated": the
+   formats around the film, all from its one renderer. The posters are the only
+   loud things. Used by the homepage, /films/ and each film page. */
+.brand-paper {
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --sans: "DM Sans", "Helvetica Neue", Arial, sans-serif;
+}
+.tape-row .eyebrow, .film-page .eyebrow, .evidence-home .eyebrow { font: 500 12px/1.4 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+/* ---------------------------------------------------------------- tape rows */
+.tape-row { display: grid; grid-template-columns: minmax(180px, 290px) minmax(0, 1fr); gap: clamp(22px, 4vw, 56px); padding-block: 36px; border-top: 1px solid var(--line); align-items: start; }
+.tape-poster { margin: 0; }
+.tape-poster a { display: block; }
+.tape-poster canvas, .tape-poster img { display: block; width: 100%; aspect-ratio: 2 / 3; object-fit: cover; background: var(--pale); box-shadow: 0 1px 0 rgba(30, 40, 60, .08), 0 18px 30px -22px rgba(30, 40, 60, .45); }
+.tape-copy { display: grid; gap: 10px; max-width: 620px; padding-top: 6px; }
+.tape-copy :is(h2, h3) { margin: 0; font: 600 clamp(28px, 3.2vw, 40px)/1.08 var(--display); letter-spacing: -.015em; text-wrap: balance; }
+.tape-copy :is(h2, h3) a { text-decoration: none; }
+.tape-copy :is(h2, h3) a:hover { text-decoration: underline; text-underline-offset: 5px; }
+.tape-copy .line { margin: 0; font: 500 19px/1.4 var(--display); }
+.tape-copy p { margin: 0; color: var(--muted); }
+.tape-copy p.line { color: var(--ink); }
+.tape-copy .meta { font-size: 14px; font-variant-numeric: tabular-nums; }
+.tape-copy .process { color: var(--muted); font-size: 13px; }
+.tape-copy .actions, .film-page .actions, .evidence-home .actions { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; margin-top: 6px; font-size: 15px; }
+.tape-copy .actions a:not(.btn), .evidence-home .actions a:not(.btn) { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.brand-paper .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; background: var(--ink); color: var(--paper); text-decoration: none; font-weight: 500; font-size: 15px; }
+.brand-paper .btn:hover { background: #0d304d; text-decoration: none; }
+.tape-page .tape-list { margin-bottom: 60px; }
+
+/* ---------------------------------------------------------------- film page */
+.film-page .film-hero { padding-block: 40px 24px; display: grid; gap: 12px; max-width: 820px; }
+.film-page .film-hero .back { font-size: 14px; color: var(--muted); text-decoration: underline; text-underline-offset: 4px; }
+.film-page .film-hero h1 { margin: 0; font: 600 clamp(36px, 5.2vw, 64px)/1.02 var(--display); letter-spacing: -.025em; text-wrap: balance; }
+.film-page .film-hero .deck { margin: 0; font-size: 19px; color: var(--muted); max-width: 60ch; }
+.film-page .film-hero .meta { margin: 0; font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.film-page .film-player { margin: 8px 0 0; background: var(--pale); }
+.film-page .film-player button { cursor: pointer; }
+.film-page .film-player button::before { content: none; } /* the pill says Play; the thumbnail's robot stays visible */
+.film-page .film-player canvas { display: block; width: 100%; height: 100%; }
+.film-page .film-player .play { position: absolute; left: 22px; top: 22px; right: auto; bottom: auto; display: inline-flex; align-items: center; gap: 10px; padding: 11px 18px 11px 12px; border-radius: 999px; background: var(--paper); color: var(--ink); font-size: 15px; font-weight: 500; box-shadow: 0 10px 24px -14px rgba(20, 30, 50, .6); }
+.film-page .film-player .play b { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--paper); font-size: 11px; padding-left: 2px; }
+.film-page .film-player button:hover .play { text-decoration: underline; text-underline-offset: 4px; }
+.film-page .player-caption { margin: 10px 0 0; font-size: 13px; color: var(--muted); }
+.film-page .film-detail-links { margin-top: 26px; }
+.film-page .film-description { margin-block: 56px 40px; }
+.film-page .made { padding-block: 64px 24px; border-top: 1px solid var(--line); margin-top: 56px; display: grid; gap: 22px; }
+.film-page :is(.made, .keep) h2 { letter-spacing: -.015em; }
+.film-page .made > div > h2 { margin: 6px 0 0; font: 600 clamp(28px, 3.4vw, 42px)/1.08 var(--display); text-wrap: balance; }
+.film-page .made > div > p { margin: 10px 0 0; color: var(--muted); max-width: 64ch; }
+.film-page .kit { --h: min(520px, 44vw); display: grid; grid-template-columns: calc(var(--h) / 1.5) minmax(0, 1fr) calc(var(--h) * 9 / 16); gap: 22px; align-items: start; }
+.film-page .kit figure { margin: 0; display: grid; gap: 8px; min-width: 0; }
+.film-page .kit canvas { display: block; width: 100%; background: var(--pale); }
+.film-page .kit .poster canvas { aspect-ratio: 2 / 3; }
+.film-page .kit .wide canvas { aspect-ratio: 16 / 9; }
+.film-page .kit .tall canvas { aspect-ratio: 9 / 16; }
+.film-page .kit .stack { display: grid; gap: 22px; }
+.film-page .kit figcaption { margin: 0; font-size: 13px; color: var(--muted); }
+.film-page .kit figcaption b { font-weight: 500; color: var(--ink); }
+.film-page .keep { padding-block: 56px 24px; border-top: 1px solid var(--line); margin-top: 40px; }
+.film-page .keep .tape-row { border-top: 0; padding-top: 18px; }
+
+@media (max-width: 900px) {
+  .film-page .kit { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); --h: auto; }
+  .film-page .kit .stack { grid-column: 1 / -1; grid-row: 2; }
+}
+@media (max-width: 760px) {
+  .tape-row { grid-template-columns: minmax(0, 120px) minmax(0, 1fr); gap: 18px; }
+  .tape-copy :is(h2, h3) { font-size: 24px; }
+  .tape-copy .line { font-size: 16px; }
+}
+@media (max-width: 560px) {
+  .film-page .kit { grid-template-columns: 1fr; }
+  .film-page .kit .tall { width: 70%; justify-self: center; }
+  .film-page .kit .stack { grid-row: auto; }
+  .film-page .film-player .play { left: 10px; top: 10px; font-size: 13px; padding: 8px 14px 8px 9px; }
+}

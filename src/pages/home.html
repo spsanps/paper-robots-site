@@ -1,7 +1,53 @@
-<main id="main" class="cinema-home">
- {{CINEMA_HERO}}
- {{CINEMA_COLLECTION}}
- <section class="cinema-reading" aria-labelledby="cinema-reading-title"><div class="shell"><div class="cinema-reading-copy"><span class="eyebrow">The essay behind the first film</span><h2 id="cinema-reading-title">Out of the<br>chat window.<br><em>Into the world.</em></h2><p>Why I think foundation models will power robots. Read <em>GPT-7 Will Have Arms</em>, the complete argument that became our first animated film.</p><a class="action" href="/essays/gpt7-will-have-arms/">Read the illustrated essay ↗</a><small>December 2025 · 28 min read</small></div><a class="cinema-book" href="/essays/gpt7-will-have-arms/"><img src="/assets/illustrations/robot-and-the-page.webp?v=3" alt="A blue robot lifts a red cup beside an open book illustrating the same action." width="1536" height="1024" loading="lazy"><span>GPT-7 WILL HAVE ARMS <span aria-hidden="true">↗</span></span></a></div></section>
- <section class="cinema-author shell"><span class="eyebrow">An independent project</span><div><h2>Written & made<br>by <a href="https://www.sankala.me/">San Kala ↗</a></h2><p>I’m an AI researcher. These films are my way of thinking through what we’re building, and where it might take us.</p><div><a href="/about/">About Paper Robots ↗</a><a href="https://www.sankala.me/">My research & other projects ↗</a></div></div><img src="/assets/identity/san-kala.webp" alt="San Kala" width="400" height="600" loading="lazy"></section>
- <section class="cinema-follow"><div class="shell"><span>More films, as I make them.</span><a href="https://www.youtube.com/@paperrobotsfilms">Follow the<br><em>robots.</em><b aria-hidden="true">↗</b></a><div><p>Free to watch. Always curious.</p><a href="/feed.xml">Prefer a feed? RSS ↗</a></div></div></section>
+<main id="main" class="home-main">
+ <section class="opening" data-opening aria-labelledby="opening-title">
+  <canvas id="opening-canvas" role="img" aria-label="A camcorder shot drawn in code. A blue paper robot floating in space looks up; the camera’s reticle hunts across the stars and locks onto a folded-paper screen drifting in space, with small green one-eyed creatures clinging to its frame. The screen tunes in to the newest film’s title card."></canvas>
+  {{OPENING_STILL}}
+  <div class="opening-copy">
+   <div class="opening-brand">
+    <span class="kicker">Animated films about AI &amp; possible futures</span>
+    <h1 id="opening-title">Paper Robots<span class="dot">.</span></h1>
+    <p class="tagline">Stories from the other side of the machine.</p>
+   </div>
+   <div class="opening-films">{{OPENING_FILMS}}</div>
+   <div class="opening-controls">
+    <a href="#films">All the films <span aria-hidden="true">↓</span></a>
+    <button type="button" data-skip hidden>Skip intro</button>
+    <button type="button" data-motion aria-pressed="false" hidden>Pause motion</button>
+   </div>
+  </div>
+ </section>
+
+ <section class="films shell" id="films" aria-labelledby="films-title">
+  <div class="section-head">
+   <span class="eyebrow">The collection / {{FILMS_YEAR}}</span>
+   <h2 id="films-title">The films</h2>
+   <p>Each film is a tape. Its poster is drawn in code, in that film’s own hand.</p>
+  </div>
+  {{FILM_ROWS}}
+ </section>
+
+ <section class="reading shell" aria-labelledby="essays-title">
+  <div class="section-head">
+   <span class="eyebrow">{{READING_EYEBROW}}</span>
+   <h2 id="essays-title">{{READING_TITLE}}</h2>
+   <p>{{READING_LEDE}}</p>
+  </div>
+  {{ESSAY_ROWS}}
+ </section>
+
+ <section class="about-follow shell" aria-label="About and follow">
+  <div>
+   <span class="eyebrow">About Paper Robots</span>
+   <h2>{{ABOUT_TITLE}}</h2>
+   {{ABOUT_COPY}}
+   <p><a href="/about/">More about Paper Robots <span aria-hidden="true">↗</span></a></p>
+  </div>
+  <div id="follow">
+   <span class="eyebrow">{{FOLLOW_EYEBROW}}</span>
+   <h2>{{FOLLOW_TITLE}}</h2>
+   <p>{{FOLLOW_LEDE}}</p>
+   <div class="follow-links">{{FOLLOW_LINKS}}</div>
+  </div>
+ </section>
 </main>
+{{SCREENING_ROOM}}

@@ -1,5 +1,9 @@
 # The evidence opening — a Paper Robots homepage proposal
 
+> October 3, 2026: San approved this ("Paper robot site looks good, you can put it up").
+> It is built into the site from `src/` on branch `evidence-opening`; see
+> `design/reviews/2026-10-03-evidence-opening-live/`. This folder stays as the proposal.
+
 October 3, 2026. San asked for prep on a Paper Robots site proposal built on the
 animation he liked: "I love the evidence loop... that could be a full page thing on
 the Paper Robots site", plus his "made, not generated" direction (each film's poster,

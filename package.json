@@ -7,7 +7,8 @@
     "build": "node scripts/build.mjs",
     "dev": "npm run build && node scripts/serve.mjs",
     "check": "node scripts/check.mjs",
-    "sync:essay": "node scripts/sync-essay.mjs"
+    "sync:essay": "node scripts/sync-essay.mjs",
+    "check:browser": "node scripts/check-browser.mjs"
   },
   "engines": {
     "node": ">=22"

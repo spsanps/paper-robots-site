@@ -1,10 +1,23 @@
 # Paper Robots website
 
-September 9: San rejected both previous homepages as ordinary, boring blogs.
-The new homepage is a full-screen film setting with silent local film previews,
-a two-film selector and an in-page screening dialog. Preserve plain film/essay
-links and reduced-motion/no-JS fallbacks. Do not call this award-winning or user
-validated. See design/reviews/2026-09-09-cinema/README.md.
+October 3, 2026: San approved the homepage that opens on the evidence loop
+("Paper robot site looks good, you can put it up"). It is built on branch
+`evidence-opening` (not yet merged or deployed). The homepage opens on a full-page
+camcorder shot drawn in code (src/scripts/opening/) that finds the paper robot and
+locks onto the newest film's code-drawn title card; tape buttons switch films;
+"Watch the film" opens the in-page screening room. Below it, the site's paper: each
+film as a tape row with its code-drawn poster, the reading room, About and Follow.
+Film pages keep the in-page player (its face is the film's code-drawn thumbnail)
+and add "Made, not generated". Everything shown comes from src/data/films.mjs and
+src/data/essays.mjs; the art's lettering is checked against that data. A new film
+needs a films.mjs entry with an `art` block and a renderer in src/scripts/film-art/
+(each film gets its own hand process; never reuse another film's look). Run
+npm run build, npm run check and npm run check:browser. Keep Skip/Pause, reduced
+motion, the 12-hour repeat-visit hold and the no-JS fallbacks. Not visitor
+validated. See design/reviews/2026-10-03-evidence-opening-live/README.md.
+
+Superseded, September 9: the painted cinema homepage with silent film previews
+(design/reviews/2026-09-09-cinema/). Its preview videos remain in public/assets.
 
 September 8 launch update: San imported the project into Vercel and connected
 GoDaddy DNS. The production origin is https://www.paperrobots.studio/; the apex
@@ -53,5 +66,5 @@ Its manuscript is GPT-7 Will Have Arms, December 2025. Preserve original dates a
 source text; keep forecasts distinguishable from established results.
 
 Run npm run build and npm run check for publication changes. For layout or
-interaction changes, run scripts/check-browser.mjs against the local preview.
+interaction changes, also run npm run check:browser (it starts its own preview).
 Read README.md and docs/launch/2026-09-domain-and-substack.md when resuming.

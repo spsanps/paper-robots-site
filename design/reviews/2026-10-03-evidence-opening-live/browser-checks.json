@@ -1,0 +1,356 @@
+{
+  "checks": [
+    {
+      "path": "/",
+      "width": 1920,
+      "height": 1080,
+      "title": "Paper Robots — AI, robots & possible futures"
+    },
+    {
+      "path": "/essays/",
+      "width": 1920,
+      "height": 1080,
+      "title": "Essays — Paper Robots"
+    },
+    {
+      "path": "/films/",
+      "width": 1920,
+      "height": 1080,
+      "title": "Animated films — Paper Robots"
+    },
+    {
+      "path": "/about/",
+      "width": 1920,
+      "height": 1080,
+      "title": "About — Paper Robots"
+    },
+    {
+      "path": "/follow/",
+      "width": 1920,
+      "height": 1080,
+      "title": "Follow — Paper Robots"
+    },
+    {
+      "path": "/essays/gpt7-will-have-arms/",
+      "width": 1920,
+      "height": 1080,
+      "title": "GPT-7 Will Have Arms — Paper Robots"
+    },
+    {
+      "path": "/films/capricious-god/",
+      "width": 1920,
+      "height": 1080,
+      "title": "How to Please a Capricious God — Paper Robots"
+    },
+    {
+      "path": "/films/robotics-revolution/",
+      "width": 1920,
+      "height": 1080,
+      "title": "The Coming Robotics Revolution — Paper Robots"
+    },
+    {
+      "path": "/",
+      "width": 1440,
+      "height": 900,
+      "title": "Paper Robots — AI, robots & possible futures"
+    },
+    {
+      "path": "/essays/",
+      "width": 1440,
+      "height": 900,
+      "title": "Essays — Paper Robots"
+    },
+    {
+      "path": "/films/",
+      "width": 1440,
+      "height": 900,
+      "title": "Animated films — Paper Robots"
+    },
+    {
+      "path": "/about/",
+      "width": 1440,
+      "height": 900,
+      "title": "About — Paper Robots"
+    },
+    {
+      "path": "/follow/",
+      "width": 1440,
+      "height": 900,
+      "title": "Follow — Paper Robots"
+    },
+    {
+      "path": "/essays/gpt7-will-have-arms/",
+      "width": 1440,
+      "height": 900,
+      "title": "GPT-7 Will Have Arms — Paper Robots"
+    },
+    {
+      "path": "/films/capricious-god/",
+      "width": 1440,
+      "height": 900,
+      "title": "How to Please a Capricious God — Paper Robots"
+    },
+    {
+      "path": "/films/robotics-revolution/",
+      "width": 1440,
+      "height": 900,
+      "title": "The Coming Robotics Revolution — Paper Robots"
+    },
+    {
+      "path": "/",
+      "width": 1280,
+      "height": 720,
+      "title": "Paper Robots — AI, robots & possible futures"
+    },
+    {
+      "path": "/essays/",
+      "width": 1280,
+      "height": 720,
+      "title": "Essays — Paper Robots"
+    },
+    {
+      "path": "/films/",
+      "width": 1280,
+      "height": 720,
+      "title": "Animated films — Paper Robots"
+    },
+    {
+      "path": "/about/",
+      "width": 1280,
+      "height": 720,
+      "title": "About — Paper Robots"
+    },
+    {
+      "path": "/follow/",
+      "width": 1280,
+      "height": 720,
+      "title": "Follow — Paper Robots"
+    },
+    {
+      "path": "/essays/gpt7-will-have-arms/",
+      "width": 1280,
+      "height": 720,
+      "title": "GPT-7 Will Have Arms — Paper Robots"
+    },
+    {
+      "path": "/films/capricious-god/",
+      "width": 1280,
+      "height": 720,
+      "title": "How to Please a Capricious God — Paper Robots"
+    },
+    {
+      "path": "/films/robotics-revolution/",
+      "width": 1280,
+      "height": 720,
+      "title": "The Coming Robotics Revolution — Paper Robots"
+    },
+    {
+      "path": "/",
+      "width": 768,
+      "height": 1024,
+      "title": "Paper Robots — AI, robots & possible futures"
+    },
+    {
+      "path": "/essays/",
+      "width": 768,
+      "height": 1024,
+      "title": "Essays — Paper Robots"
+    },
+    {
+      "path": "/films/",
+      "width": 768,
+      "height": 1024,
+      "title": "Animated films — Paper Robots"
+    },
+    {
+      "path": "/about/",
+      "width": 768,
+      "height": 1024,
+      "title": "About — Paper Robots"
+    },
+    {
+      "path": "/follow/",
+      "width": 768,
+      "height": 1024,
+      "title": "Follow — Paper Robots"
+    },
+    {
+      "path": "/essays/gpt7-will-have-arms/",
+      "width": 768,
+      "height": 1024,
+      "title": "GPT-7 Will Have Arms — Paper Robots"
+    },
+    {
+      "path": "/films/capricious-god/",
+      "width": 768,
+      "height": 1024,
+      "title": "How to Please a Capricious God — Paper Robots"
+    },
+    {
+      "path": "/films/robotics-revolution/",
+      "width": 768,
+      "height": 1024,
+      "title": "The Coming Robotics Revolution — Paper Robots"
+    },
+    {
+      "path": "/",
+      "width": 390,
+      "height": 844,
+      "title": "Paper Robots — AI, robots & possible futures"
+    },
+    {
+      "path": "/essays/",
+      "width": 390,
+      "height": 844,
+      "title": "Essays — Paper Robots"
+    },
+    {
+      "path": "/films/",
+      "width": 390,
+      "height": 844,
+      "title": "Animated films — Paper Robots"
+    },
+    {
+      "path": "/about/",
+      "width": 390,
+      "height": 844,
+      "title": "About — Paper Robots"
+    },
+    {
+      "path": "/follow/",
+      "width": 390,
+      "height": 844,
+      "title": "Follow — Paper Robots"
+    },
+    {
+      "path": "/essays/gpt7-will-have-arms/",
+      "width": 390,
+      "height": 844,
+      "title": "GPT-7 Will Have Arms — Paper Robots"
+    },
+    {
+      "path": "/films/capricious-god/",
+      "width": 390,
+      "height": 844,
+      "title": "How to Please a Capricious God — Paper Robots"
+    },
+    {
+      "path": "/films/robotics-revolution/",
+      "width": 390,
+      "height": 844,
+      "title": "The Coming Robotics Revolution — Paper Robots"
+    },
+    {
+      "path": "/",
+      "width": 360,
+      "height": 740,
+      "title": "Paper Robots — AI, robots & possible futures"
+    },
+    {
+      "path": "/essays/",
+      "width": 360,
+      "height": 740,
+      "title": "Essays — Paper Robots"
+    },
+    {
+      "path": "/films/",
+      "width": 360,
+      "height": 740,
+      "title": "Animated films — Paper Robots"
+    },
+    {
+      "path": "/about/",
+      "width": 360,
+      "height": 740,
+      "title": "About — Paper Robots"
+    },
+    {
+      "path": "/follow/",
+      "width": 360,
+      "height": 740,
+      "title": "Follow — Paper Robots"
+    },
+    {
+      "path": "/essays/gpt7-will-have-arms/",
+      "width": 360,
+      "height": 740,
+      "title": "GPT-7 Will Have Arms — Paper Robots"
+    },
+    {
+      "path": "/films/capricious-god/",
+      "width": 360,
+      "height": 740,
+      "title": "How to Please a Capricious God — Paper Robots"
+    },
+    {
+      "path": "/films/robotics-revolution/",
+      "width": 360,
+      "height": 740,
+      "title": "The Coming Robotics Revolution — Paper Robots"
+    },
+    {
+      "path": "/",
+      "width": 320,
+      "height": 640,
+      "title": "Paper Robots — AI, robots & possible futures"
+    },
+    {
+      "path": "/essays/",
+      "width": 320,
+      "height": 640,
+      "title": "Essays — Paper Robots"
+    },
+    {
+      "path": "/films/",
+      "width": 320,
+      "height": 640,
+      "title": "Animated films — Paper Robots"
+    },
+    {
+      "path": "/about/",
+      "width": 320,
+      "height": 640,
+      "title": "About — Paper Robots"
+    },
+    {
+      "path": "/follow/",
+      "width": 320,
+      "height": 640,
+      "title": "Follow — Paper Robots"
+    },
+    {
+      "path": "/essays/gpt7-will-have-arms/",
+      "width": 320,
+      "height": 640,
+      "title": "GPT-7 Will Have Arms — Paper Robots"
+    },
+    {
+      "path": "/films/capricious-god/",
+      "width": 320,
+      "height": 640,
+      "title": "How to Please a Capricious God — Paper Robots"
+    },
+    {
+      "path": "/films/robotics-revolution/",
+      "width": 320,
+      "height": 640,
+      "title": "The Coming Robotics Revolution — Paper Robots"
+    }
+  ],
+  "sizes": [
+    "1920x1080",
+    "1440x900",
+    "1280x720",
+    "768x1024",
+    "390x844",
+    "360x740",
+    "320x640"
+  ],
+  "opening": true,
+  "tapes": true,
+  "screening": true,
+  "filmPlayer": true,
+  "reducedMotion": true,
+  "repeatVisit": true,
+  "noJavaScriptReading": true
+}
