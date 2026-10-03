@@ -5,7 +5,8 @@ import { fileURLToPath } from 'node:url';
 import site from '../site.config.mjs';
 const root=fileURLToPath(new URL('../dist/',import.meta.url));
 const expectsAnalytics=process.env.VERCEL === '1' && !(process.env.SITE_BASE_PATH || '').replace(/\/$/,'');
-const paths=['/','/essays/','/films/','/about/','/follow/','/essays/gpt7-will-have-arms/','/films/capricious-god/','/films/robotics-revolution/'];
+// Every page a visitor can reach. /essays/ and /follow/ were folded into others (see below).
+const paths=['/','/films/','/about/','/essays/gpt7-will-have-arms/','/films/capricious-god/','/films/robotics-revolution/'];
 for(const path of paths) {
   const html=await readFile(resolve(root,'.'+path,'index.html'),'utf8');
   assert.equal((html.match(/<h1\b/g)||[]).length,1,'One clear heading: '+path);
@@ -27,7 +28,7 @@ assert.ok(normalizedReading.includes(article),'The full source article must surv
 assert.ok(reading.includes('December 2025') && reading.includes('September 2026'),'Original and adaptation dates');
 const exportHtml=await readFile(new URL('../publishing/substack/gpt7-will-have-arms/reading-edition.html',import.meta.url),'utf8');
 assert.ok(exportHtml.includes(article.replace(/src="\//g,`src="${site.url}/`)),'Substack edition is complete');
-console.log('Passed: eight pages, public links/assets, metadata, full article, and full Substack export.');
+console.log(`Passed: ${paths.length} pages, public links/assets, metadata, full article, and full Substack export.`);
 
 const latest=await readFile(resolve(root,'films/capricious-god/index.html'),'utf8');
 const script=await readFile(new URL('../content/films/capricious-god/script.md',import.meta.url),'utf8');
@@ -92,3 +93,43 @@ for(const path of paths) {
   assert.ok(!/patreon|ko-fi|buymeacoffee|paypal\.me|\/join\b/i.test(html),'Nonmonetized: '+path);
 }
 console.log(`Passed: the opening, ${films.length} film rows and pages, their code-drawn art data, the screening room, and the nonmonetized follow links.`);
+
+// ── The pages around the homepage (October 3, 2026) ─────────────────────────
+// /essays/ and /follow/ were folded into the homepage's reading room and About. Their
+// URLs keep working: vercel.json redirects them, a stub covers the Pages fallback, and
+// nothing links to them any more. Every page is plain paper: no decorative italic
+// headings, no generated illustrations around the work, the same three-item navigation.
+const { removed } = await import('../src/data/redirects.mjs');
+const vercel=JSON.parse(await readFile(new URL('../vercel.json',import.meta.url),'utf8'));
+const sitemap=await readFile(resolve(root,'sitemap.xml'),'utf8');
+const feeds=[await readFile(resolve(root,'feed.xml'),'utf8'),await readFile(resolve(root,'llms.txt'),'utf8')];
+const pageHtml=async path=>readFile(resolve(root,path === '/404.html' ? '404.html' : '.'+path+'index.html'),'utf8');
+for(const {from,to,permanent} of removed) {
+  for(const source of [from,from.replace(/\/$/,'')]) {
+    const rule=(vercel.redirects||[]).find(r=>r.source===source);
+    assert.ok(rule && rule.destination===to && rule.permanent===permanent,`vercel.json redirects ${source} to ${to} (${permanent ? 'permanent' : 'temporary'})`);
+  }
+  const stub=await readFile(resolve(root,'.'+from,'index.html'),'utf8');
+  assert.ok(stub.includes(`url=${B}${to}"`) && stub.includes('name="robots" content="noindex"') && stub.includes(`href="${site.url}${to}"`),'Fallback stub at '+from);
+  assert.ok(!sitemap.includes(`<loc>${site.url}${from}</loc>`),'Removed page left out of the sitemap: '+from);
+  const [toPath,hash]=to.split('#');
+  assert.ok((await pageHtml(toPath)).includes(`id="${hash}"`),`${to} lands on its anchor`);
+  for(const path of [...paths,'/404.html']) assert.ok(!(await pageHtml(path)).includes(`href="${B}${from}"`),`${path} no longer links to ${from}`);
+  for(const text of feeds) assert.ok(!text.includes(site.url+from+'<') && !text.includes(site.url+from+')'),'Feeds skip '+from);
+}
+for(const path of [...paths,'/404.html']) {
+  const html=await pageHtml(path);
+  const nav=html.match(/<nav class="desktop-nav" aria-label="Main">([\s\S]*?)<\/nav>/)[1];
+  assert.deepEqual([...nav.matchAll(/>([^<]+)<\/a>/g)].map(m=>m[1]),['Films','Essays','About'],'Navigation: '+path);
+  for(const [,heading] of html.matchAll(/<h[12][^>]*>([\s\S]*?)<\/h[12]>/g)) assert.ok(!/<(em|i|br)\b/.test(heading),`Plain headings, no decorative italics or forced breaks: ${path}: ${heading}`);
+  assert.ok(!html.includes('/assets/illustrations/'),'No generated illustrations around the work: '+path);
+}
+const about=await pageHtml('/about/');
+assert.ok(about.includes('id="follow"') && about.includes(`href="${site.youtube}"`) && about.includes(`href="${B}/feed.xml"`),'About carries Follow: YouTube and RSS');
+assert.ok(about.includes('data-art="skeleton" data-fmt="plate"'),'About draws the paper robot in code');
+for(const film of films) assert.ok(about.includes(`<a href="${B}${film.page}"><canvas data-art="${film.art.cast.art}"`),'About shows the robot in the hand of '+film.slug);
+assert.ok(about.includes(`src="${B}/scripts/film-art.js"`),'About loads the art');
+const essayFilm=films.find(film=>film.essay==='/essays/gpt7-will-have-arms/');
+assert.ok(reading.includes(`aria-labelledby="tape-${essayFilm.slug}"`) && reading.includes(`data-art="${essayFilm.art.renderer}" data-fmt="poster"`),'The essay ends on its film, with its code-drawn poster');
+assert.ok(!reading.match(/<section class="keep reading-film"[\s\S]*?<\/section>/)[0].includes('Read the essay'),'The essay page does not link back to itself');
+console.log(`Passed: ${removed.length} folded pages redirect (vercel.json and fallback stubs) with no links left to them; plain headings, no generated illustrations and the same navigation on ${paths.length+1} pages; About carries Follow and the robot drawn in code.`);

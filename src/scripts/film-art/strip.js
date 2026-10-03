@@ -4,9 +4,12 @@
    on gold). Also the little head in the wordmark.
    ═══════════════════════════════════════════════════════════════════════════ */
 'use strict';
-function tileLayout(W, H) {
-  const u = Math.min(W, H) / 600, s = Math.min(H * 0.6 / 1.25, W * 0.78 / 0.86);
-  const L = { W, H, u, s, ox: W / 2 + 0.01 * s, oy: H * 0.8 };
+// fmt 'plate' (the About page): the robot drawn larger on its sheet, the pencil heavier.
+function tileLayout(W, H, fmt = '') {
+  const plate = fmt === 'plate';
+  const u = Math.min(W, H) / (plate ? 380 : 600);
+  const s = plate ? Math.min(H * 0.72 / 1.25, W * 0.62 / 0.86) : Math.min(H * 0.6 / 1.25, W * 0.78 / 0.86);
+  const L = { W, H, u, s, ox: W / 2 + 0.01 * s, oy: H * (plate ? 0.85 : 0.8) };
   L.P = p => [L.ox + p[0] * L.s, L.oy + p[1] * L.s];
   L.PP = pts => pts.map(L.P);
   return L;
@@ -19,7 +22,7 @@ function tiltPts(pts, ang) {
 
 // ── the skeleton: non-photo-blue construction under graphite ────────────────
 function* buildSkeleton(fmt, W, H) {
-  const L = tileLayout(W, H), u = L.u;
+  const L = tileLayout(W, H, fmt), u = L.u;
   const paper = yield* makePaper(W, H, u, '#f4efe2', { mottle: 0.03, tooth: 0.035, fibres: 120, seed: 61 });
   const base = makeCanvas(W, H), b = ctxOf(base);
   b.drawImage(paper, 0, 0);
@@ -48,7 +51,7 @@ function* buildSkeleton(fmt, W, H) {
   const hd = SKELETON.head, [dx0, dy] = L.P([hd.x, hd.y - 0.17]), [dx1] = L.P([hd.x + hd.w, 0]);
   pencil(b, [[[dx0, dy], [dx1, dy]], [[dx0, dy - 4 * u], [dx0, dy + 4 * u]], [[dx1, dy - 4 * u], [dx1, dy + 4 * u]]], rnd, blue, 0.9 * u);
   label('0.55', (dx0 + dx1) / 2, dy - 5 * u, 'center');
-  label('robot units · feet at 0', W * 0.08, H * 0.94);
+  label('robot units · feet at 0', W * 0.08, fmt === 'plate' ? H * 0.09 : H * 0.94);
   const S = { L, base, rnd };
   return S;
 }

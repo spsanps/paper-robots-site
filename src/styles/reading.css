@@ -1,0 +1,62 @@
+/* The reading edition (the essay page) and the prose of the film notes. The essay's
+   text and images are San's, unchanged; this is only the page around them: the title
+   block in the reading column, contents on the left, then the film it became. */
+.reader-layout { display: grid; grid-template-columns: 190px minmax(0, 740px) minmax(0, 1fr); column-gap: 45px; align-items: start; }
+.reading-head { grid-column: 2; grid-row: 1; display: grid; gap: 12px; padding-block: 40px 8px; }
+.reading-head h1 { font: 600 clamp(40px, 5.6vw, 68px)/1.02 var(--display); letter-spacing: -.025em; }
+.reading-head .deck { font-size: 19px; color: var(--muted); max-width: 60ch; }
+.edition-byline { display: flex; align-items: center; gap: 12px; margin-top: 6px; font-size: 14px; line-height: 1.45; color: var(--muted); }
+.edition-byline img { width: 40px; height: 48px; object-fit: cover; object-position: top; }
+.edition-byline a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.reading-links { display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 15px; }
+.reading-links a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.edition-note { margin-top: 10px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); max-width: 66ch; }
+.edition-note a { text-decoration: underline; text-underline-offset: 3px; }
+.reading-toc { grid-column: 1; grid-row: 2; position: sticky; top: 32px; margin-top: 70px; font-size: 13px; line-height: 1.45; }
+.reading-toc summary { cursor: pointer; margin-bottom: 14px; font: 500 12px/1.4 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.reading-toc ol { list-style: none; padding: 0; margin: 0; }
+.reading-toc li { margin: 10px 0; }
+.reading-toc a { color: var(--muted); }
+.reading-toc a:hover { color: var(--ink); text-underline-offset: 3px; }
+.reader-layout > article { grid-column: 2; grid-row: 2; }
+.reading-end { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); font: 16px/1.65 var(--sans); color: var(--muted); }
+.reading-end a { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+.reading-film { margin-bottom: 40px; }
+
+/* ----------------------------------------------------------------- the prose */
+.publication-prose { font: 20px/1.8 Georgia, "Times New Roman", serif; color: #283f48; overflow-wrap: break-word; }
+.publication-prose p { margin: 0 0 24px; }
+.publication-prose h2 { font: 600 clamp(28px, 3vw, 34px)/1.15 var(--display); letter-spacing: -.015em; color: var(--ink); margin: 64px 0 22px; }
+.publication-prose h3 { font: 600 26px/1.2 var(--display); letter-spacing: -.01em; color: var(--ink); margin: 40px 0 18px; }
+.publication-prose h4 { font: 600 18px/1.5 var(--sans); color: var(--ink); margin: 28px 0 14px; }
+.publication-prose a { text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.publication-prose a.btn { text-decoration: none; overflow-wrap: normal; }
+.publication-prose img { width: 100%; height: auto; margin: 28px 0 12px; }
+.publication-prose :is(ul, ol) { padding-left: 26px; margin: 24px 0; }
+.publication-prose li { margin: 10px 0; }
+.publication-prose blockquote { margin: 36px 0; border-left: 3px solid var(--accent); padding: 12px 26px; }
+.publication-prose table { display: block; overflow-x: auto; border-collapse: collapse; width: 100%; max-width: 100%; font: 14px/1.5 var(--sans); margin: 30px 0; }
+.publication-prose :is(th, td) { padding: 12px; border-bottom: 1px solid var(--line); text-align: left; min-width: 92px; }
+.publication-prose th { background: var(--pale); }
+.publication-prose section { scroll-margin-top: 32px; }
+.publication-prose hr { border: 0; border-top: 1px solid var(--line); margin: 40px 0; }
+.publication-prose figcaption { font: 12px/1.5 var(--sans); margin-top: 8px; }
+
+@media (max-width: 1000px) {
+  .reader-layout { grid-template-columns: 155px minmax(0, 1fr); column-gap: 30px; }
+}
+@media (max-width: 760px) {
+  .reader-layout { grid-template-columns: minmax(0, 1fr); }
+  .reading-head { grid-column: 1; padding-top: 32px; }
+  .reading-toc { grid-column: 1; grid-row: 2; position: static; margin-top: 28px; padding: 18px 0 8px; border-block: 1px solid var(--line); }
+  .reading-toc ol { columns: 2; column-gap: 24px; }
+  .reading-toc li { break-inside: avoid; margin: 0 0 10px; }
+  .reader-layout > article { grid-column: 1; grid-row: 3; }
+  .publication-prose { font-size: 18px; }
+  .publication-prose h2 { font-size: 28px; margin-top: 52px; }
+}
+@media print {
+  .reading-toc, .reading-film, .film-player { display: none !important; }
+  .reader-layout { display: block; }
+  .publication-prose { font-size: 12pt; }
+}

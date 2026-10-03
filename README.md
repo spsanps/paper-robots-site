@@ -12,7 +12,10 @@ Cloudflare proxy/cache is not configured. GitHub Pages has no custom domain.
 
 October 3 homepage: the evidence opening (approved by San; see
 [the review](design/reviews/2026-10-03-evidence-opening-live/README.md) and
-[How the homepage works](#how-the-homepage-works)). Both films are on it, including
+[How the homepage works](#how-the-homepage-works)). The pages around it were then
+thought through and pruned on branch `subpages`: see
+[The pages around the homepage](#the-pages-around-the-homepage) and
+[that review](design/reviews/2026-10-03-subpages/README.md). Both films are on it, including
 https://youtu.be/wswbqJNMFBw. Film details, chapters, script and sources are at
 /films/capricious-god/. See docs/content/2026-09-capricious-god.md.
 Substack remains paused; no revenue features or account settings were changed.
@@ -44,11 +47,11 @@ YouTube loads only after someone presses play.
 
 | Folder | Purpose |
 | --- | --- |
-| `src/data/` | Films (newest first, with each film's `art` block) and essays: the homepage and film pages are generated from these |
+| `src/data/` | Films (newest first, with each film's `art` block), essays, and the redirects for folded pages: every page is generated from these |
 | `src/pages/` | Editable homepage and About page (the homepage's About block is read from the About page) |
-| `src/templates/` | Shared header, footer, metadata, and follow links |
-| `src/styles/` | Typography, layouts, and reading styles |
-| `src/scripts/` | Browser interactions: `site.js` (menu, film player, chapters), `screening.js` (the homepage's in-place player) |
+| `src/templates/` | Shared header, footer, metadata, follow links, redirect stubs, film rows and formats |
+| `src/styles/` | `site.css` (base, header, footer, shared page parts, About), `reading.css` (the essay and film notes' prose), `films.css` (tapes, film pages), `home.css` (the opening) |
+| `src/scripts/` | Browser interactions: `site.js` (film player, chapters), `screening.js` (the homepage's in-place player) |
 | `src/scripts/opening/` | The homepage's evidence-loop opening: the drawing kit and the shot; built into `dist/scripts/opening.js` |
 | `src/scripts/film-art/` | Each film's hand process (linocut, tempera), the shared kit and the canvas scheduler; built into `dist/scripts/film-art.js` |
 | `content/essays/<slug>/` | Complete article, manuscript, source dates and checksums |
@@ -79,8 +82,8 @@ both work without editing asset links. Project-address previews use `noindex`.
 
 ```bash
 npm run build
-npm run check          # static: pages, links, metadata, data ↔ art lettering, nonmonetized links
-npm run check:browser  # Playwright: 7 viewport sizes, the opening, tapes, screening room, players
+npm run check          # static: pages, links, metadata, data ↔ art lettering, nonmonetized links, redirects, plain headings
+npm run check:browser  # Playwright: 7 viewport sizes, the opening, tapes, screening room, players, About, old URLs
 ```
 
 ## How the homepage works
@@ -112,6 +115,24 @@ npm run check:browser  # Playwright: 7 viewport sizes, the opening, tapes, scree
 - **A new film.** Add it first in `films.mjs` with an `art` block, and give it its own
   hand process in `src/scripts/film-art/` (register it in the scheduler and in the
   opening's `RENDERERS` and `CARD_TIMING`). Never reuse another film's look.
+
+## The pages around the homepage
+
+| URL | What it is |
+| --- | --- |
+| `/films/` | Every film as a tape with its code-drawn poster; the film pages link back here |
+| `/films/<slug>/` | The in-page player, the film's notes, Made, not generated, Keep watching |
+| `/about/` | Who makes this and why, the paper robot drawn in code (the kit's pencil `skeleton` in its `plate` framing), the robot in each film's hand, Follow (`#follow`) |
+| `/essays/gpt7-will-have-arms/` | The reading edition (text and images unchanged), ending on its film |
+| `/essays/` | Redirects to `/#reading` (307, temporary): bring back an index once there are several essays |
+| `/follow/` | Redirects to `/about/#follow` (308) |
+
+The navigation is Films · Essays · About. A folded page is listed in
+`src/data/redirects.mjs` and in `vercel.json` (with and without the trailing slash); the
+build writes a small stub at the old URL for the GitHub Pages fallback, and `npm run check`
+keeps the two in step and fails if any page still links to it. Headings stay plain (no
+decorative italics or forced breaks), and the art around the work is drawn in code, never
+generated: `npm run check` enforces both.
 
 The full GPT-7 essay comes from San’s existing rich edition. Update its original
 source and generated mirror first, then sync this repository:

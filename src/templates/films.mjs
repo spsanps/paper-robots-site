@@ -24,10 +24,18 @@ export function player(film) {
 }
 
 // One film as a tape: its code-drawn poster beside its title, line and links.
-export function tapeRow(film, { heading = 'h3' } = {}) {
+// `from`: the page it sits on, so a row never links back to that page (the essay
+// page shows its film without a "Read the essay" link).
+export function tapeRow(film, { heading = 'h3', from = '' } = {}) {
   const more = filmMore(film);
   const id = `tape-${film.slug}`;
-  return `<article class="tape-row" data-film-entry aria-labelledby="${id}"><figure class="tape-poster"><a href="${film.page}" tabindex="-1" aria-hidden="true">${art(film, 'poster', film.art.alts.poster)}</a></figure><div class="tape-copy"><span class="eyebrow">Tape ${film.number} · ${film.genre}</span><${heading} id="${id}"><a href="${film.page}">${film.title}</a></${heading}><p class="line">${film.line}</p><p>${film.description}</p><p class="meta">${filmMeta(film)}</p><div class="actions"><a class="btn" href="${film.page}">Watch the film ${arrow}</a><a href="${more.href}">${more.label} ${arrow}</a></div><small class="process">Poster: ${film.art.process}, drawn in code.</small></div></article>`;
+  return `<article class="tape-row" data-film-entry aria-labelledby="${id}"><figure class="tape-poster"><a href="${film.page}" tabindex="-1" aria-hidden="true">${art(film, 'poster', film.art.alts.poster)}</a></figure><div class="tape-copy"><span class="eyebrow">Tape ${film.number} · ${film.genre}</span><${heading} id="${id}"><a href="${film.page}">${film.title}</a></${heading}><p class="line">${film.line}</p><p>${film.description}</p><p class="meta">${filmMeta(film)}</p><div class="actions"><a class="btn" href="${film.page}">Watch the film ${arrow}</a>${more.href === from ? '' : `<a href="${more.href}">${more.label} ${arrow}</a>`}</div><small class="process">Poster: ${film.art.process}, drawn in code.</small></div></article>`;
+}
+
+// The About page: the same robot in each film's hand, oldest film first, each linking
+// to its film. Without JavaScript the row is hidden (there is nothing to draw with).
+export function robotHands(films) {
+  return `<div class="robot-hands">${[...films].reverse().map(film => `<a href="${film.page}"><canvas data-art="${film.art.cast.art}" role="img" aria-label="${esc(film.art.cast.alt)}"></canvas><span><b>Tape ${film.number}</b> · ${film.art.process}</span></a>`).join('')}</div>`;
 }
 
 // "Made, not generated": the formats around a film, all from its one renderer.

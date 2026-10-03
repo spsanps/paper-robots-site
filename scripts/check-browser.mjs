@@ -1,6 +1,7 @@
 // Browser checks for the built site: every page at seven viewport sizes (errors,
-// overflow, images, anchors), then the homepage opening, the films as tapes, the
-// screening room, the film-page player, reduced motion, repeat visits and no-JS reading.
+// overflow, images, anchors, navigation), then the homepage opening, the films as tapes,
+// the screening room, the film-page player, the About page's drawings, the essay's film,
+// the folded pages' old URLs, reduced motion, repeat visits and no-JS reading.
 // Usage: npm run build && npm run check:browser
 // (or SITE_ORIGIN=http://127.0.0.1:4174 node scripts/check-browser.mjs against a running server)
 import assert from 'node:assert/strict';
@@ -9,6 +10,7 @@ import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { films } from '../src/data/films.mjs';
+import { removed } from '../src/data/redirects.mjs';
 
 const base=(process.env.SITE_BASE_PATH || '').replace(/\/$/,'');
 let server=null, origin=process.env.SITE_ORIGIN;
@@ -18,10 +20,10 @@ if(!origin) {
   origin=`http://127.0.0.1:${port}`;
   for(let i=0;;i++) { try { await fetch(origin+'/'); break; } catch { if(i>50) throw new Error('Local server did not start'); await new Promise(r=>setTimeout(r,100)); } }
 }
-const paths=['/','/essays/','/films/','/about/','/follow/','/essays/gpt7-will-have-arms/','/films/capricious-god/','/films/robotics-revolution/'];
+const paths=['/','/films/','/about/','/essays/gpt7-will-have-arms/','/films/capricious-god/','/films/robotics-revolution/','/404.html'];
 const sizes=[[1920,1080],[1440,900],[1280,720],[768,1024],[390,844],[360,740],[320,640]];
 const report=[];
-const directory=new URL('../design/reviews/2026-10-03-evidence-opening-live/',import.meta.url);
+const directory=new URL('../design/reviews/2026-10-03-subpages/',import.meta.url);
 await mkdir(directory,{recursive:true});
 const browser=await chromium.launch();
 const watchErrors=page=>{ const errors=[]; page.on('pageerror',e=>errors.push(e.message)); page.on('console',m=>{ if(m.type()==='error') errors.push(m.text()); }); return errors; };
@@ -44,7 +46,7 @@ try {
       assert.deepEqual(images,[],'Images: '+path);
       const anchors=await page.locator('a[href^="#"]').evaluateAll(links=>links.filter(a=>a.hash.length>1 && !document.getElementById(decodeURIComponent(a.hash.slice(1)))).map(a=>a.hash));
       assert.deepEqual(anchors,[],'Anchors: '+path);
-      for(const label of ['Films','Essays','About','Follow']) assert.ok(await page.getByRole('navigation',{name:'Main',exact:true}).getByRole('link',{name:label,exact:true}).isVisible(),'Visible navigation: '+path+' at '+width);
+      for(const label of ['Films','Essays','About']) assert.ok(await page.getByRole('navigation',{name:'Main',exact:true}).getByRole('link',{name:label,exact:true}).isVisible(),'Visible navigation: '+path+' at '+width);
       report.push({path,width,height,title:await page.title()});
     }
     await page.close();
@@ -122,6 +124,29 @@ try {
   assert.ok((await page.locator('iframe').getAttribute('src')).includes('start=195'),'Chapter seeks in the correct film');
   await page.close();
 
+  // The pages around the homepage: About's robot drawn in code (and in each film's hand),
+  // the essay ending on its film, and the folded pages' old URLs landing where they went.
+  const around=await browser.newPage({viewport:{width:1440,height:900}});
+  await localOnly(around);
+  const aroundErrors=watchErrors(around);
+  await around.goto(origin+base+'/about/',{waitUntil:'load'});
+  await drawn(around,'.about-robot canvas');
+  await around.locator('.robot-hands').scrollIntoViewIfNeeded();
+  await drawn(around,'.robot-hands canvas');
+  assert.equal(await around.locator('.robot-hands a').count(),films.length,'About: the robot in each film\'s hand');
+  assert.ok(await around.locator('#follow').getByRole('link',{name:'Follow on YouTube'}).isVisible(),'About carries Follow');
+  await around.goto(origin+base+'/essays/gpt7-will-have-arms/',{waitUntil:'load'});
+  await around.locator('.reading-film').scrollIntoViewIfNeeded();
+  await drawn(around,'.reading-film canvas');
+  for(const {from,to} of removed) {
+    await around.goto(origin+base+from,{waitUntil:'load'});
+    await around.waitForURL(url=>url.pathname+url.hash===base+to,{timeout:10000});
+    const hash=to.split('#')[1];
+    await around.waitForFunction(id=>{ const r=document.getElementById(id).getBoundingClientRect(); return r.top<innerHeight && r.bottom>0; },hash,{timeout:10000});
+  }
+  assert.deepEqual(aroundErrors,[],'No errors on About, the essay and the old URLs');
+  await around.close();
+
   // Reduced motion: the held shot as a still, the details visible, motion offered, not forced.
   const quiet=await browser.newPage({reducedMotion:'reduce',viewport:{width:1440,height:900}});
   await localOnly(quiet);
@@ -139,9 +164,13 @@ try {
   assert.ok(await plain.locator(`[data-tape-copy="${films[0].number}"] a.btn-play`).isVisible(),'Watch is a plain link without JavaScript');
   assert.equal(await plain.locator(`[data-tape-copy="${films[0].number}"] a.btn-play`).getAttribute('href'),base+films[0].page,'Watch falls back to the film page');
   await plain.goto(origin+base+'/essays/gpt7-will-have-arms/');
-  assert.ok((await plain.locator('article').innerText()).length>30000,'Full essay readable without JavaScript');
+  assert.ok((await plain.locator('article.publication-prose').innerText()).length>30000,'Full essay readable without JavaScript');
+  await plain.goto(origin+base+'/about/');
+  assert.ok(await plain.locator('#follow').isVisible() && !(await plain.locator('.about-robot').isVisible()),'About reads without JavaScript (the drawings step aside)');
+  await plain.goto(origin+base+'/follow/');
+  await plain.waitForURL(url=>url.pathname+url.hash===base+'/about/#follow',{timeout:10000}); // the stub's meta refresh
   await plain.close();
 
-  await writeFile(new URL('browser-checks.json',directory),JSON.stringify({checks:report,sizes:sizes.map(s=>s.join('x')),opening:true,tapes:true,screening:true,filmPlayer:true,reducedMotion:true,repeatVisit:true,noJavaScriptReading:true},null,2)+'\n');
-  console.log(`Passed ${report.length} page/viewport checks (errors, overflow, images, anchors, navigation), the opening, tapes, screening room, film players, reduced motion, repeat visits, and reading without JavaScript.`);
+  await writeFile(new URL('browser-checks.json',directory),JSON.stringify({checks:report,sizes:sizes.map(s=>s.join('x')),opening:true,tapes:true,screening:true,filmPlayer:true,about:true,essayFilm:true,redirects:removed.map(r=>r.from+' -> '+r.to),reducedMotion:true,repeatVisit:true,noJavaScriptReading:true},null,2)+'\n');
+  console.log(`Passed ${report.length} page/viewport checks (errors, overflow, images, anchors, navigation), the opening, tapes, screening room, film players, About's drawings, the essay's film, ${removed.length} old URLs, reduced motion, repeat visits, and reading without JavaScript.`);
 } finally { await browser.close(); server?.kill(); }

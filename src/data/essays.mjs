@@ -1,4 +1,5 @@
-// The reading room. Newest first. The essay page itself is built from
+// The reading room: a section of the homepage (/#reading; /essays/ redirects there
+// until there are several essays). Newest first. The essay page itself is built from
 // content/essays/<slug>/ and its source.json.
 export const readingRoom = {
   eyebrow: 'The reading room',
@@ -16,7 +17,5 @@ export const essays = [
     dates: 'Essay: December 2025 · Film: September 2026',
     page: '/essays/gpt7-will-have-arms/',
     film: '/films/robotics-revolution/',
-    image: '/assets/identity/many-arms-film.webp',
-    imageAlt: 'GPT-7 Will Have Arms: a robot in a screen reaches into the world with many arms.',
   },
 ];

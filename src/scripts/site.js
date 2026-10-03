@@ -30,5 +30,3 @@ document.querySelectorAll('[data-film-chapter]').forEach(link => link.addEventLi
 }));
 document.querySelector('[data-open-script]')?.addEventListener('click', () => { document.getElementById('script').open = true; });
 if (location.hash === '#script') document.getElementById('script')?.setAttribute('open', '');
-const menu = document.querySelector('.mobile-menu');
-menu?.addEventListener('keydown', event => { if(event.key === 'Escape') { menu.open = false; menu.querySelector('summary').focus(); } });

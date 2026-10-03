@@ -4,25 +4,16 @@
      is drawn on the canvas; the page's words, nav and buttons are plain HTML beside it.
    - below it, the site's quiet paper: the films as tapes (films.css), the reading
      room, About and Follow. */
-.evidence-home {
-  --space: #1b1747; --peri: #8c97ff; --verm: #f2603f; --cream: #fbedd2;
-  --gut: clamp(20px, 4vw, 58px);
-  background: var(--paper);
-}
-.evidence-home .shell { width: min(1200px, calc(100% - 2 * var(--gut))); }
+.evidence-home { --space: #1b1747; --peri: #8c97ff; --verm: #f2603f; --cream: #fbedd2; }
 
 /* ------------------------------------------------------- header over the shot */
 .evidence-home .site-header { position: absolute; z-index: 4; top: 0; left: 0; right: 0; width: auto; margin: 0; min-height: 0; padding: 24px var(--gut) 10px; border: 0; color: var(--cream); flex-wrap: wrap; gap: 18px; }
-.evidence-home .wordmark { gap: 11px; font: 600 21px/1 var(--display); letter-spacing: -.01em; }
 .evidence-home .wordmark canvas { width: 38px; height: 38px; display: block; }
-.evidence-home .wordmark img { width: 38px; height: 38px; border-radius: 6px; mix-blend-mode: normal; }
+.evidence-home .wordmark img { mix-blend-mode: normal; }
 html:not(.js) .evidence-home .wordmark canvas { display: none; }
-.evidence-home .wordmark-dot { color: var(--verm); margin-left: -6px; }
-.evidence-home .desktop-nav { gap: 24px; font-size: 15px; flex-wrap: wrap; }
+.evidence-home .wordmark-dot { color: var(--verm); }
 .evidence-home .desktop-nav a { padding-block: 4px; }
-.evidence-home .site-header [aria-current="page"] { color: var(--cream); }
 .evidence-home .site-header :focus-visible { outline-color: var(--cream); }
-.evidence-home .mobile-menu { display: none; }
 
 /* --------------------------------------------------------------- the opening */
 .opening { position: relative; height: 100svh; min-height: 600px; max-height: 1200px; overflow: hidden; background: var(--space); color: var(--cream); }
@@ -82,9 +73,6 @@ html:not(.js) .evidence-home .wordmark canvas { display: none; }
   .opening-films { padding-top: 18px; }
   .opening-film h2 { font-size: clamp(24px, 7vw, 32px); }
   .opening-tapes { margin-top: 18px; }
-}
-@media (max-width: 420px) {
-  .evidence-home .desktop-nav { gap: 18px; font-size: 14px; }
 }
 
 /* ------------------------------------------------------- the screening room */

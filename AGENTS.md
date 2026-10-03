@@ -1,8 +1,21 @@
 # Paper Robots website
 
+October 3, 2026 (later): San asked for the rest of the site to be thought through
+("upping or pruning", "or just relinking"). Branch `subpages` (not merged or deployed):
+nav is Films · Essays · About; `/essays/` (one essay) redirects to the homepage's reading
+room `/#reading` (307, temporary: restore a real index once there are several essays);
+`/follow/` redirects to `/about/#follow` (308). Redirects live in vercel.json and
+src/data/redirects.mjs (the build writes fallback stubs; npm run check keeps them in step).
+About shows the paper robot drawn in code (the kit's pencil `skeleton`, `plate` framing) and
+the robot in each film's hand; no generated illustrations around the work, no decorative
+italic headings (npm run check enforces both). The GPT-7 essay's text and images stay as
+San decided; only its page chrome changed. Whether Paper Robots should keep its own copy of
+the essay or relink to the sankala.me edition is San's call (recommendation: keep until
+Substack exists). Styles: site.css (base and shared), reading.css, films.css, home.css.
+See design/reviews/2026-10-03-subpages/README.md.
+
 October 3, 2026: San approved the homepage that opens on the evidence loop
-("Paper robot site looks good, you can put it up"). It is built on branch
-`evidence-opening` (not yet merged or deployed). The homepage opens on a full-page
+("Paper robot site looks good, you can put it up"). It is live (main, `ccd1822`). The homepage opens on a full-page
 camcorder shot drawn in code (src/scripts/opening/) that finds the paper robot and
 locks onto the newest film's code-drawn title card; tape buttons switch films;
 "Watch the film" opens the in-page screening room. Below it, the site's paper: each
