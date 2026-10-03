@@ -96,10 +96,10 @@ try {
     await page.locator(`#tape-${films[0].slug} a`).click();
     await page.waitForURL('**'+films[0].page);
     assert.deepEqual(errors,[],'No errors while using the opening at '+width);
-    // a repeat visitor (within 12 hours) lands on the held shot
+    // coming back to the homepage in the same visit lands on the held shot
     await page.goto(origin+base+'/',{waitUntil:'load'});
     await opening(page);
-    assert.ok(await page.evaluate(()=>document.documentElement.classList.contains('opening-seen') && window.OPENING.state().t>=5.5),'Repeat visitors land on the hold');
+    assert.ok(await page.evaluate(()=>document.documentElement.classList.contains('opening-seen') && window.OPENING.state().t>=5.5),'Returning in the same visit lands on the hold');
     await page.close();
   }
 

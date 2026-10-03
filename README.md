@@ -101,9 +101,10 @@ npm run check:browser  # Playwright: 7 viewport sizes, the opening, tapes, scree
   resume). Nothing draws off screen, in a hidden tab or while a film plays. Posters and
   film-page formats animate only on screen, for 8–16 s, then settle on their still.
 - **Access.** Skip/Replay and Pause/Play are always available (on phones they sit
-  just under the shot). Reduced motion shows the held shot as a still. Visitors who
-  saw the intro in the last 12 hours land on the hold (`localStorage`
-  `pr-opening-seen`). Safari has no canvas blur filter, so the focus hunt uses a
+  just under the shot). Reduced motion shows the held shot as a still. Coming back to the
+  homepage in the same visit lands on the hold (`sessionStorage` `pr-opening-seen`);
+  a new visit plays the intro. The shot's clock starts when it is first drawn and
+  waits while the page is in a background tab. Safari has no canvas blur filter, so the focus hunt uses a
   lens-style defocus there.
 - **Review hooks.** `?t=<s>` freezes every canvas at that moment and sets
   `window.__ready`; `?tape=01` starts on another film; `?settled` skips the intro;

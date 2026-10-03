@@ -20,7 +20,7 @@
    Cost: at most 1.5 device px per css px and about 2.4 MP; the hold draws at 24 fps;
    nothing draws while the opening is off screen, the tab is hidden, a film is
    playing in the screening room, or the camera is paused. Reduced motion shows
-   the held shot as a still. Repeat visitors within 12 hours land on the hold.
+   the held shot as a still. Coming back in the same visit lands on the hold; a new visit plays the intro.
 
    The page's words are real HTML beside the shot; only the camera's own UI
    (REC, timecode, tape counter, battery, zoom bar, reticle, AF, date) is drawn.
@@ -663,12 +663,13 @@ const qs = new URLSearchParams(location.search);
 const fixedT = qs.has('t') ? parseFloat(qs.get('t')) : null;
 if (qs.has('tape') && TAPES[qs.get('tape')]) st8.tape = qs.get('tape');
 const reduce = matchMedia('(prefers-reduced-motion: reduce)');
-const SEEN_KEY = 'pr-opening-seen', SEEN_FOR = 12 * 3600e3;
+const SEEN_KEY = 'pr-opening-seen';
 const HOLD_PLAY = 12;      // seconds the hold stays alive after the card's reveal, before the camera pauses
 const HOLD_FPS = 24;       // the hold is slow: film rate is plenty
-// someone who watched the intro in the last 12 hours lands straight on the hold
+// someone who already watched the intro in this visit (this tab) lands straight on the hold;
+// a new visit plays it again
 let seen = false;
-try { seen = Date.now() - Number(localStorage.getItem(SEEN_KEY) || 0) < SEEN_FOR; } catch (e) { /* storage may be blocked */ }
+try { seen = Boolean(sessionStorage.getItem(SEEN_KEY)); } catch (e) { /* storage may be blocked */ }
 const skipIntro = qs.has('settled') || (fixedT === null && seen);
 let t0 = performance.now() - (skipIntro ? (T_SET + 0.2) * 1000 : 0);
 let raf = 0, lastFrame = 0, onScreen = true, screening = false;
@@ -690,7 +691,7 @@ function lockedUI(t) {
   section.classList.toggle('is-locked', t >= 5.35);
   section.classList.toggle('is-intro', t < T_SET);
   if (ctl.skip) ctl.skip.textContent = t < T_SET ? 'Skip intro' : 'Replay intro';
-  if (t >= T_SET && !lockedUI.saved) { lockedUI.saved = true; try { localStorage.setItem(SEEN_KEY, String(Date.now())); } catch (e) { /* ignore */ } }
+  if (t >= T_SET && !lockedUI.saved) { lockedUI.saved = true; try { sessionStorage.setItem(SEEN_KEY, '1'); } catch (e) { /* ignore */ } }
 }
 function motionUI() {
   if (!ctl.motion) return;
@@ -863,6 +864,11 @@ async function boot() {
   showTapeCopy(st8.tape);
   layout();
   booted = true;
+  // the shot's clock starts now, when it can first be drawn (not when the script loaded,
+  // which can be over a second earlier while fonts arrive), and it waits if the page
+  // opened in a background tab, so nobody misses the intro
+  t0 = performance.now() - (skipIntro ? (T_SET + 0.2) * 1000 : 0);
+  if (document.hidden && fixedT === null) freezeClock();
   start();
 }
 boot();
