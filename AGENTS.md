@@ -21,7 +21,7 @@ locks onto the newest film's code-drawn title card; tape buttons switch films;
 "Watch the film" opens the in-page screening room. Below it, the site's paper: each
 film as a tape row with its code-drawn poster, the reading room, About and Follow.
 Film pages keep the in-page player (its face is the film's code-drawn thumbnail)
-and add "Made, not generated". Everything shown comes from src/data/films.mjs and
+and add "How it’s made" (renamed from "Made, not generated" on October 3: San does not want any claim that the work is handmade or not AI; see the About page). Everything shown comes from src/data/films.mjs and
 src/data/essays.mjs; the art's lettering is checked against that data. A new film
 needs a films.mjs entry with an `art` block and a renderer in src/scripts/film-art/
 (each film gets its own hand process; never reuse another film's look). Run
@@ -81,3 +81,10 @@ source text; keep forecasts distinguishable from established results.
 Run npm run build and npm run check for publication changes. For layout or
 interaction changes, also run npm run check:browser (it starts its own preview).
 Read README.md and docs/launch/2026-09-domain-and-substack.md when resuming.
+
+## How Paper Robots talks about AI (San, October 3, 2026)
+
+The About page's main point: Paper Robots is San's way to express ideas now that AI lets anyone make almost
+anything, almost for free. It is a new medium of expression; as the frontier moves, he uses the new way. Never claim
+or imply the work is handmade, hand-drawn, handwritten or "not AI". Say plainly that the films, pictures and code
+are made with AI tools, and that the ideas are his.

@@ -30,7 +30,7 @@ export const films = [
         thumb: ['Please', 'its god'],
         short: ['You open your eye.', 'Above you, something enormous', 'opens its own.'],
       },
-      made: 'Its poster, thumbnail, Shorts loop and title card come from one piece of code, painted as egg tempera and water-gilded gold leaf on a panel. The god is the gold: the eye opens in the gold, and the agents are painted small at its foot.',
+      made: 'The film was made with AI tools. Its poster, thumbnail, Shorts loop and title card come from one piece of code, written with Claude and drawn in the style of egg tempera and water-gilded gold leaf on a panel. The god is the gold: the eye opens in the gold, and the agents are painted small at its foot.',
       cast: { art: 'robot-gold', caption: 'film 02’s hand, tempera &amp; gold', alt: 'The same robot painted in egg tempera on a gold-leaf ground.' },
       alts: {
         poster: 'Gold-ground panel painting: an enormous vermilion eye opens in the gold while small one-eyed agents on painted rocks reach up to it, above the gilded title How to Please a Capricious God.',
@@ -62,7 +62,7 @@ export const films = [
         thumb: ['GPT-7', 'Will have arms'],
         short: ['One model.', 'A world full', 'of hands.'],
       },
-      made: 'The film was animated in the studio. Its poster, thumbnail, Shorts loop and title card come from one piece of code: the robot, defined once, cut as a three-block reduction linocut in ochre, vermilion and cobalt. Change the robot, and every format follows.',
+      made: 'The film was made with AI tools. Its poster, thumbnail, Shorts loop and title card come from one piece of code, written with Claude: the robot, defined once, cut as a three-block reduction linocut in ochre, vermilion and cobalt. Change the robot, and every format follows.',
       cast: { art: 'robot-lino', caption: 'the skeleton every format reads', alt: 'The same robot alone, as a cobalt linocut on ochre.' },
       alts: {
         poster: 'Linocut poster in cobalt, ochre and vermilion: the paper robot inside a screen, six ribbed arms reaching out of it against carved sun rays, under the title The Coming Robotics Revolution.',

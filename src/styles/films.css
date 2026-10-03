@@ -1,6 +1,6 @@
 /* The films as tapes, on the site's quiet paper. Each film is a row with its
    code-drawn poster (src/scripts/film-art/); the film page adds the in-page player,
-   whose face is the film's code-drawn thumbnail, and "Made, not generated": the
+   whose face is the film's code-drawn thumbnail, and "How it’s made": the
    formats around the film, all from its one renderer. The posters are the only
    loud things. Used by the homepage, /films/, each film page, the essay page (its
    film) and the About page (the robot in each film's hand). */

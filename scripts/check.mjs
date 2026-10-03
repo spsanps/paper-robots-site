@@ -79,7 +79,7 @@ for(const film of films) {
   // the film page: in-page player, its code-drawn face, and how it was made
   const filmPage=await readFile(resolve(root,'.'+film.page,'index.html'),'utf8');
   assert.ok(filmPage.includes(`data-play-film="${film.id}"`) && filmPage.includes(`data-art="${film.art.renderer}" data-fmt="thumb"`),'Film page player: '+film.slug);
-  assert.ok(filmPage.includes('Made, not generated') && ['poster','title','short'].every(fmt=>filmPage.includes(`data-art="${film.art.renderer}" data-fmt="${fmt}"`)) && filmPage.includes(`data-art="${film.art.cast.art}"`),'Film page shows how it was made: '+film.slug);
+  assert.ok(filmPage.includes('How it’s made') && ['poster','title','short'].every(fmt=>filmPage.includes(`data-art="${film.art.renderer}" data-fmt="${fmt}"`)) && filmPage.includes(`data-art="${film.art.cast.art}"`),'Film page shows how it was made: '+film.slug);
   assert.ok(filmPage.includes(`src="${B}/scripts/film-art.js"`) && filmPage.includes('id="paper-robots-films"'),'Film page loads the art and its data: '+film.slug);
 }
 assert.equal((home.match(/<article class="tape-row"/g)||[]).length,films.length,'One row per film');

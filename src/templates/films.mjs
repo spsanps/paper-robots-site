@@ -38,9 +38,9 @@ export function robotHands(films) {
   return `<div class="robot-hands">${[...films].reverse().map(film => `<a href="${film.page}"><canvas data-art="${film.art.cast.art}" role="img" aria-label="${esc(film.art.cast.alt)}"></canvas><span><b>Tape ${film.number}</b> · ${film.art.process}</span></a>`).join('')}</div>`;
 }
 
-// "Made, not generated": the formats around a film, all from its one renderer.
+// "How it’s made": the formats around a film, all from its one renderer.
 export function madeSection(film) {
   const r = film.art.renderer, a = film.art.alts;
   const fig = (cls, fmt, alt, caption, artKey = r) => `<figure class="${cls}"><canvas data-art="${artKey}"${fmt ? ` data-fmt="${fmt}"` : ''} role="img" aria-label="${esc(alt)}"></canvas><figcaption>${caption}</figcaption></figure>`;
-  return `<section class="made" aria-labelledby="made-title"><div><span class="eyebrow">Made, not generated</span><h2 id="made-title">Everything around the film is drawn in code.</h2><p>${film.art.made}</p></div><div class="kit">${fig('poster', 'poster', a.poster, '<b>Poster</b> · 2:3 · 2000 × 3000')}<div class="stack">${fig('wide', 'title', a.title, '<b>Title card</b> · 16:9 · 1920 × 1080 · animated')}${fig('wide', '', film.art.cast.alt, `<b>The robot</b> · ${film.art.cast.caption}`, film.art.cast.art)}</div>${fig('tall', 'short', a.short, '<b>Shorts</b> · 9:16 · 1080 × 1920 · 8 s loop')}</div></section>`;
+  return `<section class="made" aria-labelledby="made-title"><div><span class="eyebrow">How it’s made</span><h2 id="made-title">One piece of code, every format.</h2><p>${film.art.made}</p></div><div class="kit">${fig('poster', 'poster', a.poster, '<b>Poster</b> · 2:3 · 2000 × 3000')}<div class="stack">${fig('wide', 'title', a.title, '<b>Title card</b> · 16:9 · 1920 × 1080 · animated')}${fig('wide', '', film.art.cast.alt, `<b>The robot</b> · ${film.art.cast.caption}`, film.art.cast.art)}</div>${fig('tall', 'short', a.short, '<b>Shorts</b> · 9:16 · 1080 × 1920 · 8 s loop')}</div></section>`;
 }

@@ -121,7 +121,7 @@ npm run check:browser  # Playwright: 7 viewport sizes, the opening, tapes, scree
 | URL | What it is |
 | --- | --- |
 | `/films/` | Every film as a tape with its code-drawn poster; the film pages link back here |
-| `/films/<slug>/` | The in-page player, the film's notes, Made, not generated, Keep watching |
+| `/films/<slug>/` | The in-page player, the film's notes, How it’s made, Keep watching |
 | `/about/` | Who makes this and why, the paper robot drawn in code (the kit's pencil `skeleton` in its `plate` framing), the robot in each film's hand, Follow (`#follow`) |
 | `/essays/gpt7-will-have-arms/` | The reading edition (text and images unchanged), ending on its film |
 | `/essays/` | Redirects to `/#reading` (307, temporary): bring back an index once there are several essays |
