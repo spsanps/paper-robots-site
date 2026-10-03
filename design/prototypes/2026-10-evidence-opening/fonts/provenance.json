@@ -1,0 +1,26 @@
+[
+  {
+    "family": "Fraunces:wght@400;500;600;700",
+    "stylesheet": "https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600;700&display=swap",
+    "license": "https://raw.githubusercontent.com/google/fonts/main/ofl/fraunces/OFL.txt",
+    "files": [
+      "fraunces-1.woff2",
+      "fraunces-2.woff2",
+      "fraunces-3.woff2",
+      "fraunces-4.woff2"
+    ],
+    "conversion": "Downloaded official Google Fonts TTFs and compressed to WOFF2 with fontTools; glyphs unchanged."
+  },
+  {
+    "family": "DM+Sans:wght@400;500;600;700",
+    "stylesheet": "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap",
+    "license": "https://raw.githubusercontent.com/google/fonts/main/ofl/dmsans/OFL.txt",
+    "files": [
+      "dm-sans-1.woff2",
+      "dm-sans-2.woff2",
+      "dm-sans-3.woff2",
+      "dm-sans-4.woff2"
+    ],
+    "conversion": "Downloaded official Google Fonts TTFs and compressed to WOFF2 with fontTools; glyphs unchanged."
+  }
+]

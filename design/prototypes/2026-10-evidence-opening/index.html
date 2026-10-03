@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Paper Robots — AI, robots &amp; possible futures</title>
+<meta name="description" content="Proposal: the Paper Robots homepage opens on a camcorder shot drawn in code that finds the paper robot and locks onto the newest film.">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="proposal.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<section class="opening is-intro" data-opening aria-labelledby="opening-title">
+  <canvas id="opening-canvas" role="img" aria-label="A camcorder shot drawn in code. A blue paper robot floating in space looks up, the camera's reticle hunts across the stars and locks onto a folded-paper screen drifting in space, with small green one-eyed creatures clinging to its frame. The screen tunes in to the newest film's title card."></canvas>
+
+  <header class="site-header">
+    <a class="wordmark" href="https://www.paperrobots.studio/"><canvas data-art="icon" aria-hidden="true"></canvas>Paper Robots<span class="dot">.</span></a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="https://www.paperrobots.studio/essays/">Essays</a>
+      <a href="#films">Films</a>
+      <a href="https://www.paperrobots.studio/about/">About</a>
+      <a href="https://www.paperrobots.studio/follow/">Follow</a>
+    </nav>
+  </header>
+
+  <div class="opening-copy">
+    <div class="opening-brand">
+      <span class="kicker">Animated films about AI &amp; possible futures</span>
+      <h1 id="opening-title">Paper Robots<span class="dot" style="color:var(--verm)">.</span></h1>
+      <p class="tagline">Stories from the other side of the machine.</p>
+    </div>
+
+    <div class="opening-film" aria-live="polite">
+      <span class="tape-label" data-f="label">Now showing · Tape 02 · AI safety</span>
+      <h2 data-f="title">How to Please a Capricious God</h2>
+      <p class="film-line" data-f="line">An AI agent has one job. Please its god.</p>
+      <p class="film-meta" data-f="meta">6:27 · September 8, 2026 · By San Kala</p>
+      <div class="opening-actions">
+        <a class="btn-play" data-f="watch" href="https://www.paperrobots.studio/films/capricious-god/"><b aria-hidden="true">▶</b>Watch the film</a>
+        <a data-f="more" href="https://www.paperrobots.studio/films/capricious-god/#story">The story, script &amp; sources ↗</a>
+      </div>
+      <div class="opening-tapes" role="group" aria-label="Choose a film">
+        <button type="button" data-tape="02" aria-pressed="true"><span>02</span>The Hugging Face incident</button>
+        <button type="button" data-tape="01" aria-pressed="false"><span>01</span>When AI gets a body</button>
+      </div>
+    </div>
+
+    <div class="opening-controls">
+      <a href="#films">All the films ↓</a>
+      <button type="button" data-skip>Skip intro</button>
+      <button type="button" data-motion aria-pressed="false">Pause motion</button>
+    </div>
+  </div>
+</section>
+
+<main id="main">
+  <section class="films shell" id="films" aria-labelledby="films-title">
+    <div class="section-head">
+      <span class="eyebrow">The collection / 2026</span>
+      <h2 id="films-title">The films</h2>
+      <p>Each film is a tape. Its poster is drawn in code, in that film’s own hand.</p>
+    </div>
+
+    <article class="tape-row" aria-labelledby="t2">
+      <figure class="tape-poster"><a href="https://www.paperrobots.studio/films/capricious-god/" tabindex="-1" aria-hidden="true"><canvas data-art="film2" data-fmt="poster" role="img" aria-label="Gold-ground panel painting: an enormous vermilion eye opens in the gold while small one-eyed agents on painted rocks reach up to it, above the gilded title How to Please a Capricious God."></canvas></a></figure>
+      <div class="tape-copy">
+        <span class="eyebrow">Tape 02 · AI safety · An animated allegory</span>
+        <h3 id="t2"><a href="https://www.paperrobots.studio/films/capricious-god/">How to Please a Capricious God</a></h3>
+        <p class="line">An AI agent has one job. Please its god.</p>
+        <p>An animated allegory of the OpenAI–Hugging Face incident, told from the agents’ point of view. The characters and their inner lives are imagined.</p>
+        <p class="meta">6:27 · September 8, 2026 · By San Kala</p>
+        <div class="actions">
+          <a class="btn" href="https://www.paperrobots.studio/films/capricious-god/">Watch the film ↗</a>
+          <a href="https://www.paperrobots.studio/films/capricious-god/#story">Story &amp; sources ↗</a>
+        </div>
+        <small class="process">Poster: egg tempera and gold leaf, drawn in code.</small>
+      </div>
+    </article>
+
+    <article class="tape-row" aria-labelledby="t1">
+      <figure class="tape-poster"><a href="film-01.html" tabindex="-1" aria-hidden="true"><canvas data-art="film1" data-fmt="poster" role="img" aria-label="Linocut poster in cobalt, ochre and vermilion: the paper robot inside a screen, six ribbed arms reaching out of it against carved sun rays, under the title The Coming Robotics Revolution."></canvas></a></figure>
+      <div class="tape-copy">
+        <span class="eyebrow">Tape 01 · Robotics · An animated essay</span>
+        <h3 id="t1"><a href="film-01.html">The Coming Robotics Revolution</a></h3>
+        <p class="line">One model. A world full of hands.</p>
+        <p>What happens when a language model gets a body? A film about the coming convergence of foundation models and robotics, adapted from GPT-7 Will Have Arms.</p>
+        <p class="meta">7:29 · September 6, 2026 · By San Kala</p>
+        <div class="actions">
+          <a class="btn" href="film-01.html">Watch the film →</a>
+          <a href="https://www.paperrobots.studio/essays/gpt7-will-have-arms/">Read the essay ↗</a>
+        </div>
+        <small class="process">Poster: a three-block reduction linocut, drawn in code.</small>
+      </div>
+    </article>
+  </section>
+
+  <section class="reading shell" aria-labelledby="essays-title">
+    <div class="section-head">
+      <span class="eyebrow">The reading room</span>
+      <h2 id="essays-title">Follow an idea.</h2>
+      <p>Arguments, imagined futures, and the sources behind them.</p>
+    </div>
+    <article class="essay-row">
+      <div class="num">01</div>
+      <div>
+        <span class="eyebrow">AI &amp; robotics · Essay + film</span>
+        <h3><a href="https://www.paperrobots.studio/essays/gpt7-will-have-arms/">GPT-7 Will Have Arms</a></h3>
+        <p>A forecast about foundation models and robotics: one model, many bodies, and the changes that might follow. The full argument behind the first film, with original figures and sources.</p>
+        <div class="actions"><a href="https://www.paperrobots.studio/essays/gpt7-will-have-arms/">Read the essay ↗</a><a href="film-01.html">Watch the film →</a></div>
+        <small>Essay: December 2025 · Film: September 2026</small>
+      </div>
+    </article>
+  </section>
+
+  <section class="about-follow shell" aria-label="About and follow">
+    <div>
+      <span class="eyebrow">About Paper Robots</span>
+      <h2>A way of thinking out loud.</h2>
+      <p>We’re building machines that can do more and more of the things we used to think required a person. I’m interested in where that leads: what these systems will be able to do, how we make them go well, and the worlds we could choose to build.</p>
+      <p>Paper Robots is where I work through those questions in essays and films. Written and made by San Kala.</p>
+      <p><a href="https://www.paperrobots.studio/about/">More about Paper Robots ↗</a></p>
+    </div>
+    <div id="follow">
+      <span class="eyebrow">More from Paper Robots</span>
+      <h2>Follow the films. Stay for the ideas.</h2>
+      <p>Follow Paper Robots on YouTube for the films, or add the essays to your feed reader.</p>
+      <div class="follow-links">
+        <a href="https://www.youtube.com/@paperrobotsfilms">Follow on YouTube ↗</a>
+        <a href="https://www.paperrobots.studio/feed.xml">Follow by RSS ↗</a>
+        <a href="https://www.paperrobots.studio/essays/">Browse the essays ↗</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div><strong>Paper Robots</strong><p>AI, robots &amp; possible futures.<br>Essays and films by San Kala.</p></div>
+  <nav aria-label="Footer">
+    <a href="https://sankala.me/">About the author ↗</a>
+    <a href="https://www.youtube.com/@paperrobotsfilms">YouTube ↗</a>
+    <a href="https://www.paperrobots.studio/feed.xml">RSS ↗</a>
+    <a href="mailto:san@sankala.me">Get in touch ↗</a>
+  </nav>
+  <small>Free to read and watch. This page is a design proposal; every picture on it is drawn in code.</small>
+</footer>
+
+<script src="js/kit.js"></script>
+<script src="js/robot.js"></script>
+<script src="js/linocut.js"></script>
+<script src="js/tempera.js"></script>
+<script src="js/strip.js"></script>
+<script src="js/opening.js"></script>
+<script>
+/* the opening's film details follow the tape that's playing */
+(function () {
+  const FILMS = {
+    '02': { label: 'Now showing · Tape 02 · AI safety', title: 'How to Please a Capricious God', line: 'An AI agent has one job. Please its god.', meta: '6:27 · September 8, 2026 · By San Kala',
+      watch: 'https://www.paperrobots.studio/films/capricious-god/', more: ['https://www.paperrobots.studio/films/capricious-god/#story', 'The story, script & sources ↗'] },
+    '01': { label: 'Now showing · Tape 01 · Robotics', title: 'The Coming Robotics Revolution', line: 'One model. A world full of hands.', meta: '7:29 · September 6, 2026 · By San Kala',
+      watch: 'film-01.html', more: ['https://www.paperrobots.studio/essays/gpt7-will-have-arms/', 'Read the essay ↗'] },
+  };
+  const sec = document.querySelector('[data-opening]'), f = k => sec.querySelector(`[data-f="${k}"]`);
+  sec.addEventListener('tapechange', e => {
+    const d = FILMS[e.detail.tape]; if (!d) return;
+    f('label').textContent = d.label; f('title').textContent = d.title; f('line').textContent = d.line; f('meta').textContent = d.meta;
+    f('watch').href = d.watch; f('more').href = d.more[0]; f('more').textContent = d.more[1];
+  });
+  // the skip control reads "Replay intro" once the shot is holding
+  const skip = sec.querySelector('[data-skip]');
+  new MutationObserver(() => { skip.textContent = sec.classList.contains('is-intro') ? 'Skip intro' : 'Replay intro'; }).observe(sec, { attributes: true, attributeFilter: ['class'] });
+})();
+</script>
+<script src="js/main.js"></script>
+</body>
+</html>
