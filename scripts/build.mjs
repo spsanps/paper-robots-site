@@ -69,8 +69,9 @@ await page('/','Paper Robots — AI, robots & possible futures',fill(await readS
 }),{
   schema: {'@context':'https://schema.org','@type':'WebSite',name:site.name,url:site.url,description:site.description,publisher:{'@type':'Person',name:site.author,url:site.authorUrl}},
   bodyClass:'evidence-home', themeColor:'#1b1747',
-  // The opening's film details stay hidden until the camera locks, except when the intro was already seen in this visit.
-  head:`<script>document.documentElement.classList.add('js');try{if(sessionStorage.getItem('pr-opening-seen'))document.documentElement.classList.add('opening-seen')}catch(e){}</script>${filmsCss}<link rel="stylesheet" href="/styles/home.css">${filmArtIsland()}${filmArtScripts}<script defer src="/scripts/opening.js"></script><script defer src="/scripts/screening.js"></script>`,
+  // The opening's film details stay hidden until the camera locks, except when a visitor comes back to the
+  // homepage from another page of the site after watching the intro. Fresh visits and reloads always play it.
+  head:`<script>document.documentElement.classList.add('js');try{var n=performance.getEntriesByType('navigation')[0],y=n&&n.type,r=document.referrer,o=r&&new URL(r).origin===location.origin;if(sessionStorage.getItem('pr-opening-seen')&&(y==='back_forward'||(y==='navigate'&&o)))document.documentElement.classList.add('opening-seen')}catch(e){}</script>${filmsCss}<link rel="stylesheet" href="/styles/home.css">${filmArtIsland()}${filmArtScripts}<script defer src="/scripts/opening.js"></script><script defer src="/scripts/screening.js"></script>`,
   mark:'<canvas data-art="icon" aria-hidden="true"></canvas><noscript><img src="/assets/identity/paper-robot.webp" alt="" width="46" height="46"></noscript>',
 });
 // About: who makes this and why, the robot drawn in code, the films so far, and Follow

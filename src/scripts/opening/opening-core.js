@@ -666,13 +666,13 @@ const reduce = matchMedia('(prefers-reduced-motion: reduce)');
 const SEEN_KEY = 'pr-opening-seen';
 const HOLD_PLAY = 12;      // seconds the hold stays alive after the card's reveal, before the camera pauses
 const HOLD_FPS = 24;       // the hold is slow: film rate is plenty
-// someone who already watched the intro in this visit (this tab) lands straight on the hold;
-// a new visit plays it again
-let seen = false;
-try { seen = Boolean(sessionStorage.getItem(SEEN_KEY)); } catch (e) { /* storage may be blocked */ }
+// the intro plays on every fresh visit and every reload; only someone coming back to the
+// homepage from another page of the site, after watching it, lands straight on the hold
+// (the head script decides, so the film details show without a flash)
+const seen = document.documentElement.classList.contains('opening-seen');
 const skipIntro = qs.has('settled') || (fixedT === null && seen);
 let t0 = performance.now() - (skipIntro ? (T_SET + 0.2) * 1000 : 0);
-let raf = 0, lastFrame = 0, onScreen = true, screening = false;
+let raf = 0, lastFrame = 0, lastTs = 0, firstTick = true, onScreen = true, screening = false;
 let paused = null;          // null, or why the shot is still: 'user' | 'settled' | 'reduced'
 let frozenAt = 0;           // performance.now() when the clock stopped (paused, hidden, screening)
 let playFrom = 0;           // the hold's motion budget counts from here
@@ -717,7 +717,13 @@ function readyToSettle(t) {
 }
 function tick(ts) {
   raf = 0;
-  if (frozen() || !onScreen) return;
+  if (frozen() || !onScreen) { lastTs = 0; return; }
+  // the intro's clock starts on its first drawn frame, and during the intro a slow frame
+  // (building textures, a busy machine, a moment off screen) never skips more than a
+  // tenth of a second of the shot
+  if (firstTick) { firstTick = false; if (!skipIntro) t0 = performance.now(); }
+  else if (lastTs && now() < T_SET + 0.6) { const gap = ts - lastTs; if (gap > 100) t0 += gap - 100; }
+  lastTs = ts;
   const t = now();
   // build the playing card in slices; later the other tapes
   const done = stepCard(cardFor(st8.tape), t < 5.6 ? 9 : 6);
@@ -732,7 +738,7 @@ function tick(ts) {
 }
 let booted = false;
 function kick() { if (booted && !raf && !frozen() && onScreen && fixedT === null) raf = requestAnimationFrame(tick); }
-function freezeClock() { if (!frozenAt) frozenAt = performance.now(); cancelAnimationFrame(raf); raf = 0; }
+function freezeClock() { if (!frozenAt) frozenAt = performance.now(); cancelAnimationFrame(raf); raf = 0; lastTs = 0; }
 function thawClock() { if (frozenAt) { t0 += performance.now() - frozenAt; frozenAt = 0; } }
 /* stop the camera: the last frame stays, with the viewfinder showing PAUSE */
 function settle(reason) {

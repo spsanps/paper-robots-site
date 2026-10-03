@@ -98,10 +98,15 @@ try {
     await page.locator(`#tape-${films[0].slug} a`).click();
     await page.waitForURL('**'+films[0].page);
     assert.deepEqual(errors,[],'No errors while using the opening at '+width);
-    // coming back to the homepage in the same visit lands on the held shot
-    await page.goto(origin+base+'/',{waitUntil:'load'});
+    // coming back to the homepage from another page of the site lands on the held shot
+    await page.locator('a.wordmark').first().click();
+    await page.waitForURL(u=>new URL(u).pathname===base+'/');
     await opening(page);
-    assert.ok(await page.evaluate(()=>document.documentElement.classList.contains('opening-seen') && window.OPENING.state().t>=5.5),'Returning in the same visit lands on the hold');
+    assert.ok(await page.evaluate(()=>document.documentElement.classList.contains('opening-seen') && window.OPENING.state().t>=5.5),'Coming back from another page lands on the hold');
+    // a reload always plays the intro from the start
+    await page.reload({waitUntil:'load'});
+    await opening(page);
+    assert.ok(await page.evaluate(()=>!document.documentElement.classList.contains('opening-seen') && window.OPENING.state().t<3),'A reload plays the intro');
     await page.close();
   }
 
