@@ -3,10 +3,11 @@ import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import site from '../site.config.mjs';
+import { gpt7Essay } from '../src/data/redirects.mjs';
 const root=fileURLToPath(new URL('../dist/',import.meta.url));
 const expectsAnalytics=process.env.VERCEL === '1' && !(process.env.SITE_BASE_PATH || '').replace(/\/$/,'');
 // Every page a visitor can reach. /essays/ and /follow/ were folded into others (see below).
-const paths=['/','/films/','/about/','/essays/gpt7-will-have-arms/','/films/capricious-god/','/films/robotics-revolution/'];
+const paths=['/','/films/','/about/','/films/capricious-god/','/films/robotics-revolution/'];
 for(const path of paths) {
   const html=await readFile(resolve(root,'.'+path,'index.html'),'utf8');
   assert.equal((html.match(/<h1\b/g)||[]).length,1,'One clear heading: '+path);
@@ -21,14 +22,10 @@ for(const path of paths) {
     await readFile(resolve(root,'.'+decodeURIComponent(filename)));
   }
 }
-const reading=await readFile(resolve(root,'essays/gpt7-will-have-arms/index.html'),'utf8');
 const article=(await readFile(new URL('../content/essays/gpt7-will-have-arms/article.html',import.meta.url),'utf8')).trim();
-const normalizedReading=process.env.SITE_BASE_PATH ? reading.replaceAll('src="'+process.env.SITE_BASE_PATH+'/', 'src="/') : reading;
-assert.ok(normalizedReading.includes(article),'The full source article must survive publication');
-assert.ok(reading.includes('December 2025') && reading.includes('September 2026'),'Original and adaptation dates');
 const exportHtml=await readFile(new URL('../publishing/substack/gpt7-will-have-arms/reading-edition.html',import.meta.url),'utf8');
 assert.ok(exportHtml.includes(article.replace(/src="\//g,`src="${site.url}/`)),'Substack edition is complete');
-console.log(`Passed: ${paths.length} pages, public links/assets, metadata, full article, and full Substack export.`);
+console.log(`Passed: ${paths.length} pages, public links/assets, metadata, and full Substack export.`);
 
 const latest=await readFile(resolve(root,'films/capricious-god/index.html'),'utf8');
 const script=await readFile(new URL('../content/films/capricious-god/script.md',import.meta.url),'utf8');
@@ -85,7 +82,7 @@ for(const film of films) {
 assert.equal((home.match(/<article class="tape-row"/g)||[]).length,films.length,'One row per film');
 assert.equal((home.match(/<article class="opening-film"/g)||[]).length,films.length,'One opening block per film');
 assert.ok(home.includes('<dialog class="screening" data-screening'),'The screening room is on the homepage');
-for(const essay of essays) assert.ok(home.includes(`<a href="${B}${essay.page}">${essay.title}</a>`),'Reading room row: '+essay.slug);
+for(const essay of essays) assert.ok(home.includes(`<a href="${essay.page}">${essay.title}</a>`),'Reading room row: '+essay.slug);
 assert.ok(home.includes(`href="${site.youtube}"`) && home.includes(`href="${B}/feed.xml"`),'Follow: YouTube and RSS');
 for(const path of paths) {
   const html=await readFile(resolve(root,'.'+path,'index.html'),'utf8');
@@ -104,18 +101,39 @@ const vercel=JSON.parse(await readFile(new URL('../vercel.json',import.meta.url)
 const sitemap=await readFile(resolve(root,'sitemap.xml'),'utf8');
 const feeds=[await readFile(resolve(root,'feed.xml'),'utf8'),await readFile(resolve(root,'llms.txt'),'utf8')];
 const pageHtml=async path=>readFile(resolve(root,path === '/404.html' ? '404.html' : '.'+path+'index.html'),'utf8');
-for(const {from,to,permanent} of removed) {
+const external=to=>/^https?:\/\//.test(to);
+for(const {from,to,permanent,stub:wantsStub=true} of removed) {
   for(const source of [from,from.replace(/\/$/,'')]) {
     const rule=(vercel.redirects||[]).find(r=>r.source===source);
     assert.ok(rule && rule.destination===to && rule.permanent===permanent,`vercel.json redirects ${source} to ${to} (${permanent ? 'permanent' : 'temporary'})`);
   }
-  const stub=await readFile(resolve(root,'.'+from,'index.html'),'utf8');
-  assert.ok(stub.includes(`url=${B}${to}"`) && stub.includes('name="robots" content="noindex"') && stub.includes(`href="${site.url}${to}"`),'Fallback stub at '+from);
+  if(wantsStub) {
+    const stub=await readFile(resolve(root,'.'+from,'index.html'),'utf8');
+    const target=external(to) ? to : B+to;
+    assert.ok(stub.includes(`url=${target}"`) && stub.includes('name="robots" content="noindex"') && stub.includes(`rel="canonical" href="${external(to) ? to : site.url+to}"`),'Fallback stub at '+from);
+  }
   assert.ok(!sitemap.includes(`<loc>${site.url}${from}</loc>`),'Removed page left out of the sitemap: '+from);
-  const [toPath,hash]=to.split('#');
-  assert.ok((await pageHtml(toPath)).includes(`id="${hash}"`),`${to} lands on its anchor`);
+  if(!external(to)) {
+    const [toPath,hash]=to.split('#');
+    assert.ok((await pageHtml(toPath)).includes(`id="${hash}"`),`${to} lands on its anchor`);
+  }
   for(const path of [...paths,'/404.html']) assert.ok(!(await pageHtml(path)).includes(`href="${B}${from}"`),`${path} no longer links to ${from}`);
   for(const text of feeds) assert.ok(!text.includes(site.url+from+'<') && !text.includes(site.url+from+')'),'Feeds skip '+from);
+}
+// The essay lives on sankala.me: Paper Robots builds no page for it, and every link goes there.
+{
+  assert.equal(gpt7Essay,'https://www.sankala.me/notes/gpt7-will-have-arms');
+  await assert.rejects(readFile(resolve(root,'essays/gpt7-will-have-arms/manuscript.md')),'No manuscript copy is served');
+  assert.ok(!sitemap.includes('gpt7-will-have-arms'),'The sitemap lists no essay page');
+  assert.ok(feeds[0].includes(`<link>${gpt7Essay}</link>`) && feeds[1].includes(`](${gpt7Essay})`),'RSS and llms.txt point at sankala.me');
+  assert.equal(essays[0].page,gpt7Essay,'The reading room row points at sankala.me');
+  const essayFilm=films.find(film=>film.essay);
+  assert.equal(essayFilm.essay,gpt7Essay,'The film links to the essay on sankala.me');
+  const filmPage=await pageHtml(essayFilm.page);
+  assert.ok(filmPage.includes(`<a href="${gpt7Essay}">Read the essay`) && filmPage.includes(`<a href="${gpt7Essay}">GPT-7 Will Have Arms</a>`),'The film page links to the essay on sankala.me');
+  assert.ok(home.includes(`href="${gpt7Essay}"`),'The homepage links to the essay on sankala.me');
+  assert.ok((await pageHtml('/about/')).includes(`<a href="${gpt7Essay}">GPT-7 Will Have Arms</a>`),'About links to the essay on sankala.me');
+  for(const path of [...paths,'/404.html']) assert.ok(!(await pageHtml(path)).includes('/essays/gpt7-will-have-arms'),'No internal link to the old essay URL: '+path);
 }
 for(const path of [...paths,'/404.html']) {
   const html=await pageHtml(path);
@@ -129,7 +147,4 @@ assert.ok(about.includes('id="follow"') && about.includes(`href="${site.youtube}
 assert.ok(about.includes('data-art="skeleton" data-fmt="plate"'),'About draws the paper robot in code');
 for(const film of films) assert.ok(about.includes(`<a href="${B}${film.page}"><canvas data-art="${film.art.cast.art}"`),'About shows the robot in the hand of '+film.slug);
 assert.ok(about.includes(`src="${B}/scripts/film-art.js"`),'About loads the art');
-const essayFilm=films.find(film=>film.essay==='/essays/gpt7-will-have-arms/');
-assert.ok(reading.includes(`aria-labelledby="tape-${essayFilm.slug}"`) && reading.includes(`data-art="${essayFilm.art.renderer}" data-fmt="poster"`),'The essay ends on its film, with its code-drawn poster');
-assert.ok(!reading.match(/<section class="keep reading-film"[\s\S]*?<\/section>/)[0].includes('Read the essay'),'The essay page does not link back to itself');
 console.log(`Passed: ${removed.length} folded pages redirect (vercel.json and fallback stubs) with no links left to them; plain headings, no generated illustrations and the same navigation on ${paths.length+1} pages; About carries Follow and the robot drawn in code.`);

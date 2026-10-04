@@ -5,6 +5,8 @@
 // card (src/scripts/film-art/). Its lettering is checked at build time against
 // the film's own title, line, essay title or script, so the pictures can never
 // say something the data does not. `renderer` names the film's hand process.
+import { gpt7Essay } from './redirects.mjs';
+
 export const films = [
   {
     slug: 'capricious-god', number: '02', id: 'wswbqJNMFBw',
@@ -52,7 +54,7 @@ export const films = [
     duration: '7:29', isoDuration: 'PT7M29S', date: 'September 6, 2026', published: '2026-09-06',
     image: '/assets/identity/many-arms-film.webp',
     alt: 'A blue robot in a screen reaches into the world with many arms.',
-    page: '/films/robotics-revolution/', essay: '/essays/gpt7-will-have-arms/',
+    page: '/films/robotics-revolution/', essay: gpt7Essay,
     art: {
       renderer: 'film1',
       process: 'a three-block reduction linocut',

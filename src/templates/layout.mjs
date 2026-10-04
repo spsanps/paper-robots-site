@@ -18,7 +18,11 @@ export const followLinks = () => `<a href="${follow.primary[0]}">${follow.primar
 // A removed page: Vercel answers with the redirect in vercel.json before this file is
 // reached. This stub keeps the old URL working on the GitHub Pages fallback and locally.
 // `base` is the GitHub Pages project prefix, if any.
-export const redirectStub = (to, label, base = '') => `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>${esc(label)} — Paper Robots</title><link rel="canonical" href="${site.url + to}"><meta http-equiv="refresh" content="0; url=${base + to}"><script>location.replace(${JSON.stringify(base + to)})</script></head><body><p>This page has moved: <a href="${base + to}">${esc(label)}</a>.</p></body></html>`;
+export const redirectStub = (to, label, base = '') => {
+  const external = /^https?:\/\//.test(to);
+  const target = external ? to : base + to;
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>${esc(label)} — Paper Robots</title><link rel="canonical" href="${external ? to : site.url + to}"><meta http-equiv="refresh" content="0; url=${target}"><script>location.replace(${JSON.stringify(target)})</script></head><body><p>This page has moved: <a href="${target}">${esc(label)}</a>.</p></body></html>`;
+};
 // head: page-specific styles, data and scripts. mark: the wordmark's picture
 // (the painted robot by default; the homepage draws its head in code).
 const paintedMark = '<img src="/assets/identity/paper-robot.webp" alt="" width="46" height="46">';

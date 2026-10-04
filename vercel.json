@@ -7,6 +7,9 @@
   "redirects": [
     { "source": "/essays", "destination": "/#reading", "permanent": false },
     { "source": "/essays/", "destination": "/#reading", "permanent": false },
+    { "source": "/essays/gpt7-will-have-arms", "destination": "https://www.sankala.me/notes/gpt7-will-have-arms", "permanent": true },
+    { "source": "/essays/gpt7-will-have-arms/", "destination": "https://www.sankala.me/notes/gpt7-will-have-arms", "permanent": true },
+    { "source": "/essays/gpt7-will-have-arms/manuscript.md", "destination": "https://www.sankala.me/notes/gpt7-will-have-arms", "permanent": true },
     { "source": "/follow", "destination": "/about/#follow", "permanent": true },
     { "source": "/follow/", "destination": "/about/#follow", "permanent": true }
   ]

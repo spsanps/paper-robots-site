@@ -19,12 +19,6 @@
       "title": "About — Paper Robots"
     },
     {
-      "path": "/essays/gpt7-will-have-arms/",
-      "width": 1920,
-      "height": 1080,
-      "title": "GPT-7 Will Have Arms — Paper Robots"
-    },
-    {
       "path": "/films/capricious-god/",
       "width": 1920,
       "height": 1080,
@@ -61,12 +55,6 @@
       "title": "About — Paper Robots"
     },
     {
-      "path": "/essays/gpt7-will-have-arms/",
-      "width": 1440,
-      "height": 900,
-      "title": "GPT-7 Will Have Arms — Paper Robots"
-    },
-    {
       "path": "/films/capricious-god/",
       "width": 1440,
       "height": 900,
@@ -103,12 +91,6 @@
       "title": "About — Paper Robots"
     },
     {
-      "path": "/essays/gpt7-will-have-arms/",
-      "width": 1280,
-      "height": 720,
-      "title": "GPT-7 Will Have Arms — Paper Robots"
-    },
-    {
       "path": "/films/capricious-god/",
       "width": 1280,
       "height": 720,
@@ -143,12 +125,6 @@
       "width": 768,
       "height": 1024,
       "title": "About — Paper Robots"
-    },
-    {
-      "path": "/essays/gpt7-will-have-arms/",
-      "width": 768,
-      "height": 1024,
-      "title": "GPT-7 Will Have Arms — Paper Robots"
     },
     {
       "path": "/films/capricious-god/",
@@ -187,12 +163,6 @@
       "title": "About — Paper Robots"
     },
     {
-      "path": "/essays/gpt7-will-have-arms/",
-      "width": 390,
-      "height": 844,
-      "title": "GPT-7 Will Have Arms — Paper Robots"
-    },
-    {
       "path": "/films/capricious-god/",
       "width": 390,
       "height": 844,
@@ -229,12 +199,6 @@
       "title": "About — Paper Robots"
     },
     {
-      "path": "/essays/gpt7-will-have-arms/",
-      "width": 360,
-      "height": 740,
-      "title": "GPT-7 Will Have Arms — Paper Robots"
-    },
-    {
       "path": "/films/capricious-god/",
       "width": 360,
       "height": 740,
@@ -269,12 +233,6 @@
       "width": 320,
       "height": 640,
       "title": "About — Paper Robots"
-    },
-    {
-      "path": "/essays/gpt7-will-have-arms/",
-      "width": 320,
-      "height": 640,
-      "title": "GPT-7 Will Have Arms — Paper Robots"
     },
     {
       "path": "/films/capricious-god/",
@@ -309,12 +267,14 @@
   "screening": true,
   "filmPlayer": true,
   "about": true,
-  "essayFilm": true,
+  "essayLinks": true,
   "redirects": [
     "/essays/ -> /#reading",
-    "/follow/ -> /about/#follow"
+    "/follow/ -> /about/#follow",
+    "/essays/gpt7-will-have-arms/ -> https://www.sankala.me/notes/gpt7-will-have-arms",
+    "/essays/gpt7-will-have-arms/manuscript.md -> https://www.sankala.me/notes/gpt7-will-have-arms"
   ],
   "reducedMotion": true,
   "repeatVisit": true,
-  "noJavaScriptReading": true
+  "noJavaScript": true
 }
